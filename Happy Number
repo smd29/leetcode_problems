@@ -1,0 +1,21 @@
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        if n==1:
+            return True
+        def value(n):
+            r_sq = 0
+            while(n):
+                r=n%10
+                n=n//10
+                r_sq+=pow(r,2)
+            return r_sq
+        
+        new_list = []
+        
+        while (n!=1):
+            n = value(n)
+            if n in new_list:
+                return False
+            new_list.append(n)
+        return True
+        
