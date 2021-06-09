@@ -6,8 +6,6 @@ class Solution(object):
         :rtype: List[int]
         """
         for i in range(0,len(nums)):
-            #j=i+1
-            #if(nums[i]<=target):
             j=i+1
             while(j<len(nums)):
                 if(nums[i]+nums[j]==target):
