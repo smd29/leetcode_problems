@@ -14,3 +14,5 @@ class Solution(object):
                     return i,j
                 else:
                     j=j+1
+                    
+  # time complexity = O(n*2)
