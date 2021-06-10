@@ -15,4 +15,5 @@ class Solution:
                 return first,second
             myset.add(i)
             
- #time complexity O(n) 
+#time complexity O(n) 
+#space complexity O(n)
