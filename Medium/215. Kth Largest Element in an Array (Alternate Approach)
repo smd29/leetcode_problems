@@ -1,0 +1,28 @@
+def partition(arr, low, high):
+    pivot = arr[high]
+    i = low - 1
+    for j in range(low, high):
+        if arr[j] <= pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]
+    return i + 1
+
+
+def quickSelect(arr,low,high,k):
+    p = partition(arr,low,high)
+    if p == k:
+        return arr[p]
+    elif k<p:
+        return quickSelect(arr,low,p-1,k)
+    else:
+        return quickSelect(arr,p+1,high,k)
+
+
+# driver code:
+arr = [10, 5, 2, -1, 7, 6, 4]
+x = quickSelect(arr,0,len(arr)-1,2)
+print(x)
+
+
+#0-based indexing
