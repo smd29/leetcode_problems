@@ -1,0 +1,20 @@
+from itertools import islice
+
+class Solution:
+    def matrixReshape(self, mat: List[List[int]], r: int, c: int) -> List[List[int]]:
+        dummy_list = []
+        for i in range(0,len(mat)):
+            for j in range(0,len(mat[i])):
+                dummy_list.append(mat[i][j])
+        
+        if r*c != len(dummy_list):
+            return mat
+            
+        split_list = []
+        
+        while r > 0:
+            split_list.append(c)
+            r -= 1
+        
+        Inputt = iter(dummy_list)
+        return [list(islice(Inputt, elem)) for elem in split_list]
