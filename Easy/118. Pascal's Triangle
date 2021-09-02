@@ -1,0 +1,13 @@
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        triangle = []
+        if not numRows:
+            return triangle
+        else:
+            triangle.append([1]) #first row
+            for i in range(1,numRows):
+                triangle.append([1]) #first element will be 1 always
+                for j in range(1,i):
+                    triangle[i].append(triangle[i-1][j-1]+triangle[i-1][j])
+                triangle[i].append(1) #last element will be 1 always
+            return triangle
