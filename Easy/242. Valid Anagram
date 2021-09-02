@@ -1,0 +1,17 @@
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        mydict = {}
+        if len(s)!= len(t):
+            return False
+        
+        for i in s:
+            if i in mydict:
+                mydict[i] += 1
+            else:
+                mydict[i] = 1
+        for i in t:
+            if i in mydict and mydict[i] > 0:
+                mydict[i] -= 1
+            else:
+                return False
+        return True
