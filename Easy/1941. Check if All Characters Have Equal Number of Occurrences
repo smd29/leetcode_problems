@@ -1,0 +1,14 @@
+class Solution:
+    def areOccurrencesEqual(self, s: str) -> bool:
+        dict = {}
+        for i in s:
+            if i in dict:
+                dict[i] += 1
+            else:
+                dict[i] = 1
+        
+        val = list(dict.values())[0]
+        for i in dict:
+            if dict[i] != val:
+                return False
+        return True
