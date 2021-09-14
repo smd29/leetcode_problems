@@ -1,0 +1,11 @@
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        current = 0
+        last = len(nums)-1
+        for i in range(len(nums)):
+            if i > current:
+                return False
+            if nums[i]+i > current:
+                current = nums[i]+i
+            if current >= last:
+                return True
