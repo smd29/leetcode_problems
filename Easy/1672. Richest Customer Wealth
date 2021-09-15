@@ -1,0 +1,9 @@
+class Solution:
+    def maximumWealth(self, accounts: List[List[int]]) -> int:
+        val = -sys.maxsize
+        for i in range(0,len(accounts)):
+            wealth = 0
+            for j in range(0,len(accounts[i])):
+                wealth += accounts[i][j]
+            val = max(val,wealth)
+        return val
