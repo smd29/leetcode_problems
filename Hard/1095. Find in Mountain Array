@@ -1,0 +1,50 @@
+# """
+# This is MountainArray's API interface.
+# You should not implement it, or speculate about its implementation
+# """
+#class MountainArray:
+#    def get(self, index: int) -> int:
+#    def length(self) -> int:
+
+class Solution:
+    def findInMountainArray(self, target: int, arr: 'MountainArray') -> int:
+        peak = self.findPeak(arr)
+        leftArr = self.binSearch(arr,target,0,peak)
+        if leftArr != -1:
+            return leftArr
+        return self.binSearch_rev(arr,target,peak+1,arr.length() - 1)
+        
+        
+        
+    def findPeak(self,arr):
+        low = 0 
+        high = arr.length() - 1
+        while low < high:
+            mid = (low + high)//2
+            if arr.get(mid) > arr.get(mid+1): #    arr[mid] > arr[mid+1]:
+                high = mid 
+            else:
+                low = mid + 1
+        return low
+    
+    def binSearch(self,arr,target,low,high):
+        while low <= high:
+            mid = (low + high)//2
+            if arr.get(mid) == target:
+                return mid
+            elif arr.get(mid) > target:
+                high = mid - 1
+            else:
+                low = mid + 1
+        return -1 
+        
+    def binSearch_rev(self,arr,target,low,high):
+        while low <= high:
+            mid = (low + high)//2
+            if arr.get(mid) == target:
+                return mid
+            elif arr.get(mid) < target:
+                high = mid - 1
+            else:
+                low = mid + 1
+        return -1 
