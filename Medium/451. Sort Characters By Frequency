@@ -1,0 +1,21 @@
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        mydict = {}
+        for i in s:
+            if i in mydict:
+                mydict[i] += 1
+            else:
+                mydict[i] = 1
+        
+        freq = [[]for i in range(len(s)+1)]
+        for i,j in mydict.items():
+            freq[j].append(i)
+        #print(freq)
+        res = ""
+        curr = len(freq) - 1
+        while curr > -1:
+            for i in freq[curr]:
+                #print(i)
+                res = res.ljust(curr+len(res),i)
+            curr -= 1
+        return res
