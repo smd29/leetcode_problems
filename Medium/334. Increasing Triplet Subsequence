@@ -1,0 +1,13 @@
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+        if len(nums) < 3:
+            return False
+        min1 = min2 = sys.maxsize  
+        for i,val in enumerate(nums):
+            if min1 < min2 < val:
+                return True
+            elif val < min1:
+                min1 = val
+            elif min1 < val < min2:
+                min2 = val
+        return False
