@@ -1,0 +1,21 @@
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        if n < 0:
+            isNeg = True
+            n = abs(n)
+        else:
+            isNeg = False
+        
+            
+        def solve(x,n):
+            if n == 0:
+                return 1
+            if n%2 == 0:
+                return solve(x*x,n//2)
+            else:
+                return x*solve(x*x,(n-1)//2)
+            
+        ans = solve(x,n)
+        if isNeg:
+            return 1/ans
+        return ans
