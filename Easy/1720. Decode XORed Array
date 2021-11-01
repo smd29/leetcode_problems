@@ -1,0 +1,8 @@
+class Solution:
+    def decode(self, encoded: List[int], first: int) -> List[int]:
+        res = [first]
+        i = 0
+        while i < len(encoded):
+            res.append(encoded[i] ^ res[-1])
+            i += 1
+        return res
