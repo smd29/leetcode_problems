@@ -1,0 +1,11 @@
+class Solution:
+    def xorOperation(self, n: int, start: int) -> int:
+        if n == 1:
+            return start
+        nums = [start] * n
+        nums[1] = start + 2
+        val = nums[0] ^ nums[1]
+        for i in range(2,n):
+            nums[i] = nums[i - 1] + 2
+            val ^= nums[i]
+        return val
