@@ -1,0 +1,9 @@
+class Solution:
+    def arrangeCoins(self, n: int) -> int:
+        val = total = 0
+        while total < n:
+            val += 1 
+            total += val
+        if total == n:
+            return val
+        return val - 1
