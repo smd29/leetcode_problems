@@ -1,0 +1,15 @@
+class Solution:
+    def findGCD(self, nums: List[int]) -> int:
+        
+        def gcd(a,b):
+            if b == 0:
+                return a
+            return gcd(b,a%b)
+        
+        smallest,largest = sys.maxsize, -sys.maxsize
+        for i in nums:
+            if i < smallest:
+                smallest = i
+            if i > largest:
+                largest = i
+        return gcd(smallest,largest)
