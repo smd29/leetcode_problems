@@ -1,0 +1,16 @@
+class Solution:
+    def selfDividingNumbers(self, left: int, right: int) -> List[int]:
+        
+        def checkifSelfDividing(num):
+            tmp = num 
+            while tmp > 0:
+                val = tmp % 10
+                tmp = tmp // 10
+                if val == 0 or num % val != 0:
+                    return False
+            return True
+        res = []
+        for i in range(left,right+1):
+            if checkifSelfDividing(i):
+                res.append(i)
+        return res
