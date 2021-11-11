@@ -1,0 +1,18 @@
+class Solution:
+    def minStartValue(self, nums: List[int]) -> int:
+        if nums[0] < 1:
+            start = 1 - nums[0]
+        else:
+            start = 1
+        i = 0
+        step_sum = start
+        
+        while i < len(nums):
+            step_sum += nums[i]
+            if step_sum < 1:    
+                start += 1
+                step_sum = start
+                i = 0
+            else:
+                i += 1
+        return start
