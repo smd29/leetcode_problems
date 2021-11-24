@@ -1,0 +1,20 @@
+class Solution:
+    def summaryRanges(self, nums: List[int]) -> List[str]:
+        if len(nums) == 1:
+            return [f"{nums[0]}"]
+        if len(nums) == 0:
+            return []
+        res = []
+        start = nums[0]
+        for i in range(len(nums) - 1):
+            if nums[i + 1] - nums[i] > 1:
+                if nums[i] > start:
+                    res.append(f"{start}->{nums[i]}")
+                else:
+                    res.append(f"{start}")
+                start = nums[i + 1]
+        if nums[-1] > start:
+            res.append(f"{start}->{nums[-1]}")
+        else:
+            res.append(f"{start}")
+        return res
