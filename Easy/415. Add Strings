@@ -1,0 +1,17 @@
+class Solution:
+    def addStrings(self, num1: str, num2: str) -> str:
+        if len(num1) > len(num2):
+            diff = len(num1) - len(num2)
+            num2 = "0"*diff + num2
+        elif len(num1) < len(num2):
+            diff = len(num2) - len(num1)
+            num1 = "0"*diff + num1
+        res = ""
+        carry = 0
+        for i in range(len(num1)-1,-1,-1):
+            digit = (ord(num1[i])-48 + ord(num2[i])-48 + carry) % 10
+            carry = (ord(num1[i])-48 + ord(num2[i])-48 + carry) // 10
+            res = "{}".format(digit)+res
+        if carry > 0:
+            return "{}".format(carry)+res
+        return res
