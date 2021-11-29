@@ -1,0 +1,22 @@
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        a = a.zfill(max(len(a),len(b)))
+        b = b.zfill(max(len(a),len(b)))
+        idx = len(a) - 1
+        carry = 0
+        res = ""
+        while idx > -1:
+            val = carry + int(a[idx]) + int(b[idx])
+            carry = 0
+            if val > 1:
+                carry = 1
+                if val % 2 == 0:
+                    val = 0
+                else:
+                    val = 1
+            res = str(val)+res
+            idx -= 1
+        res = str(carry)+res
+        if int(res) == 0:
+            return "0"
+        return res.lstrip("0")
