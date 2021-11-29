@@ -1,0 +1,16 @@
+class Solution:
+    def addToArrayForm(self, num: List[int], k: int) -> List[int]:
+        size = len(num)
+        val = 0 
+        for i in num:
+            curr = i * pow(10,size-1)
+            val += curr
+            size -= 1
+        val += k
+        if val == 0:
+            return [0]
+        res = []
+        while val > 0:
+            res.append(val % 10)
+            val = val // 10
+        return res[::-1]
