@@ -1,0 +1,12 @@
+class Solution:
+    def isCovered(self, ranges: List[List[int]], left: int, right: int) -> bool:
+        myset = set()
+        for i in ranges:
+            start = i[0]
+            end = i[1]
+            for val in range(start,end+1):
+                myset.add(val)
+        for i in range(left,right+1):
+            if i not in myset:
+                return False
+        return True
