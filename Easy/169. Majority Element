@@ -1,0 +1,19 @@
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        elem = nums[0]
+        freq = 1 
+        length = len(nums)
+        for idx in range(1,length):
+            # there is no majority element till this point
+            if freq == 0:
+                elem = nums[idx]
+                freq = 1    
+            #same as last element, increase frequency  
+            elif nums[idx] == elem: #same as last element, increase frequency
+                freq += 1
+            #if different element encountered, decrease frequency
+            else:
+                freq -= 1
+        return elem
+    
+    #TC -> O(n)  SC -> O(1)
