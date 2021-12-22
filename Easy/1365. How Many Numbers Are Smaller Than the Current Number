@@ -1,0 +1,15 @@
+class Solution:
+    def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
+        nums2 = sorted(nums)
+        res = []
+        mydict = {}
+        for idx in range(len(nums2)):
+            if nums2[idx] not in mydict:
+                mydict[nums2[idx]] = idx
+        
+        for idx in range(len(nums)):
+            res.append(mydict[nums[idx]])
+        return res
+    
+    #TC -> O(nlogn)
+    #SC -> O(n)
