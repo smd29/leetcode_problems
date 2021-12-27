@@ -1,0 +1,12 @@
+class Solution:
+    def bitwiseComplement(self, n: int) -> int:
+        # n + ans = 2^x - 1
+        if n == 0:
+            return 1
+        length = 0
+        val = n
+        while n > 0:
+            rem = n % 2
+            n = (n-rem) // 2
+            length += 1
+        return (2 ** length) - 1 - val
