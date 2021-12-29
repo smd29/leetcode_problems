@@ -1,0 +1,14 @@
+class Solution:
+    def balancedStringSplit(self, s: str) -> int:
+        res = 0 
+        var = 0
+        for idx in range(len(s)):
+            if s[idx] == 'L':
+                var += 1
+            else:
+                var -= 1
+            if var == 0:
+                res += 1
+        return res
+    
+    #TC -> O(n) SC -> O(1)
