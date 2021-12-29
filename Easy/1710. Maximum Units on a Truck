@@ -1,0 +1,16 @@
+class Solution:
+    def maximumUnits(self, boxTypes: List[List[int]], truckSize: int) -> int:
+        profit = sorted(boxTypes,key=lambda x:x[1],reverse = True)
+        print(profit)
+        units = 0
+        idx = 0
+        while truckSize > 0 and idx < len(profit):
+            if profit[idx][0] <= truckSize:
+                #add full
+                units += (profit[idx][0] * profit[idx][1])
+                truckSize -= profit[idx][0]
+            else:
+                units += (truckSize * profit[idx][1])
+                truckSize = 0 
+            idx += 1
+        return units
