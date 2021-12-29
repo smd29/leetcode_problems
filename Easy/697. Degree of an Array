@@ -1,0 +1,34 @@
+class Solution:
+    def findShortestSubArray(self, nums: List[int]) -> int:
+        freq_count = {}
+        degree = 0
+        elems = []
+        for val in nums:
+            if val in freq_count:
+                freq_count[val] += 1
+            else:
+                freq_count[val] = 1
+            if freq_count[val] > degree:
+                degree = freq_count[val]
+        for key in freq_count:
+            if freq_count[key] == degree:
+                elems.append(key)
+
+        if degree == 1:
+            return 1
+        min_len = len(nums)
+        for val in elems:
+            start = 0 
+            end = len(nums) - 1
+            while start < len(nums):
+                if nums[start] != val:
+                    start += 1
+                else:
+                    break
+            while end > -1:
+                if nums[end] != val:
+                    end -= 1
+                else:
+                    break
+            min_len = min(min_len,end-start+1)
+        return min_len
