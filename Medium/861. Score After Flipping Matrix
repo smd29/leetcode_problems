@@ -32,5 +32,5 @@ class Solution:
                 mul *= 2
         return score
     
-    #TC -->O(n^2)
+    #TC -->O(m*n)
     #SC --> O(n)
