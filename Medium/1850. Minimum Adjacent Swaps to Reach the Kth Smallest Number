@@ -1,0 +1,26 @@
+class Solution:
+    def getMinSwaps(self, nums: str, k: int) -> int:
+        def nextPermutation(nums: List[int]):
+            idx = len(nums) - 2 
+            while idx > -1:
+                if nums[idx] < nums[idx+1]:
+                    pivot = j = idx+1
+                    while j < len(nums) and nums[idx] < nums[j]:
+                        pivot = j
+                        j += 1
+                    nums[idx],nums[pivot] = nums[pivot],nums[idx]
+                    break
+                idx -= 1
+            nums[idx+1:] = nums[idx+1:][::-1]
+            return nums
+        
+        num = list(nums)
+        for cnt in range(k):
+            num = nextPermutation(num)
+        res = 0
+        origin = list(nums)
+        for idx in range(len(origin)):
+            j = num.index(origin[idx],idx)
+            res += j - idx
+            num[idx:j+1] = [num[j]]+ num[idx:j]
+        return res
