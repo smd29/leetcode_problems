@@ -1,0 +1,8 @@
+class Solution:
+    def arrayPairSum(self, nums: List[int]) -> int:
+        nums.sort()
+        #we can't simply use the 1st max,3rd max, 5th max....
+        res = 0 
+        for idx in range(0,len(nums),2):
+            res += nums[idx]
+        return res
