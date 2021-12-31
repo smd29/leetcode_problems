@@ -1,0 +1,17 @@
+class Solution:
+    def maximumScore(self, a: int, b: int, c: int) -> int:
+        score = 0 
+        while (a + b + c) > a and (a + b + c) > b and (a + b + c) > c: 
+            #find the min and decrement other two 
+            min_pile = min(a,b,c)
+            if min_pile == a:
+                b -= 1
+                c -= 1
+            elif min_pile == b:
+                a -= 1
+                c -= 1
+            else:
+                a -= 1
+                b -= 1
+            score += 1
+        return score
