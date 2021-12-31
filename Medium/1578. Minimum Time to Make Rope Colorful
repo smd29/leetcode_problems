@@ -1,0 +1,17 @@
+class Solution:
+    def minCost(self, colors: str, neededTime: List[int]) -> int:
+        time = 0 
+        if len(colors) > 1:
+            ptr1, ptr2 = 0, 1
+            while ptr2 < len(colors):
+                curr_sum = max_time = neededTime[ptr1]
+                while ptr2 < len(colors) and colors[ptr1] == colors[ptr2]:
+                    curr_sum += neededTime[ptr2]
+                    max_time = max(max_time,neededTime[ptr2])
+                    ptr2 += 1
+                time += curr_sum - max_time
+                ptr1 = ptr2
+                ptr2 = ptr1 + 1
+        return time
+        #TC -> O(n)
+        #SC -> O(1)
