@@ -1,0 +1,13 @@
+class Solution:
+    def validPalindrome(self, s: str) -> bool:
+        def verify(s,start,end,already_deleted):
+            while start < end:
+                if s[start] != s[end]:
+                    if already_deleted:
+                        return False
+                    return verify(s,start+1,end,True) or verify(s,start,end-1,True)
+                else:
+                    start += 1
+                    end -= 1
+            return True
+        return verify(s,0,len(s)-1,False)
