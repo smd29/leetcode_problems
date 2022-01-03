@@ -1,0 +1,16 @@
+class Solution:
+    def reversePrefix(self, word: str, ch: str) -> str:
+        end = 0 
+        while end < len(word):
+            if word[end] == ch:
+                break
+            end += 1
+        if end == len(word):
+            return word
+        nxt = end + 1
+        res = ""
+        for i in range(end,-1,-1):
+            res += word[i]
+        for i in range(nxt,len(word)):
+            res += word[i]
+        return res
