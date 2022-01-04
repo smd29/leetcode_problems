@@ -1,0 +1,22 @@
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        last_pos = {}
+        
+        #store last position of each element
+        for idx,val in enumerate(s):
+            last_pos[val] = idx
+        
+        res = []
+        curr = end = sum = 0 
+        while end < len(s):
+            end = max(end,last_pos[s[curr]])
+            start = curr
+            while curr < end:
+                end = max(end,last_pos[s[curr]])
+                curr += 1
+            if curr == end:
+                res.append(end-start+1)
+                sum += res[-1]
+                if sum == len(s):
+                    return res
+                curr += 1
