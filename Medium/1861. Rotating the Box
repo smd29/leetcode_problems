@@ -1,0 +1,21 @@
+class Solution:
+    def rotateTheBox(self, box: List[List[str]]) -> List[List[str]]:
+        for i in range(len(box)):
+            vacant=[]
+            for j in range(len(box[0])-1,-1,-1):
+                if box[i][j]=='.':#Vacant Place
+                    vacant.append(j)
+                elif box[i][j]=='*':
+                    vacant.clear()
+                else:
+                    if vacant:
+                        box[i][vacant.pop(0)]=box[i][j]
+                        box[i][j]='.'
+                        vacant.append(j)
+        ans=[]
+        for c in range(len(box[0])):
+            tmp=[]
+            for r in range(len(box)-1,-1,-1):
+                tmp.append(box[r][c])
+            ans.append(tmp)
+        return ans
