@@ -1,0 +1,12 @@
+class Solution:
+    def createTargetArray(self, nums: List[int], index: List[int]) -> List[int]:
+        target = [None] * len(nums)
+        for idx in range(len(nums)):
+            if target[index[idx]] != None:
+                prev = target[index[idx]]
+                for i in range(index[idx] + 1, len(target)):
+                    curr = target[i]
+                    target[i] = prev
+                    prev = curr
+            target[index[idx]] = nums[idx]
+        return target
