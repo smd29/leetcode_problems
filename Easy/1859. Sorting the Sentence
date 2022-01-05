@@ -1,0 +1,9 @@
+class Solution:
+    def sortSentence(self, s: str) -> str:
+        lst = s.split(" ")
+        print(lst)
+        lst2 = lst.copy()
+        for val in lst:
+            pos = ord(val[-1]) - 49
+            lst2[pos] = val[:-1]
+        return ' '.join(lst2)
