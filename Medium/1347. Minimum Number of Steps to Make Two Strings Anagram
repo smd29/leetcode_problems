@@ -1,0 +1,23 @@
+class Solution:
+    def minSteps(self, s: str, t: str) -> int:
+        freq_s = {}
+        freq_t = {}
+        for val in s:
+            if val in freq_s:
+                freq_s[val] += 1
+            else:
+                freq_s[val] = 1
+        for val in t:
+            if val in freq_t:
+                freq_t[val] += 1
+            else:
+                freq_t[val] = 1
+        
+        count = 0 
+        for key in freq_t:
+            if key in freq_s:
+                if freq_t[key] > freq_s[key]:
+                    count += (freq_t[key] - freq_s[key])
+            else:
+                count += freq_t[key]
+        return count 
