@@ -1,0 +1,11 @@
+class Solution:
+    def findingUsersActiveMinutes(self, logs: List[List[int]], k: int) -> List[int]:
+        log_dict = {}
+        for idx, time in logs:
+            log_dict.setdefault(idx,set()).add(time)
+        
+        res = [0] * k
+        for key in log_dict:
+            log_dict[key] = len(log_dict[key])
+            res[log_dict[key]-1] += 1
+        return res
