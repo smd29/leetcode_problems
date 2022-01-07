@@ -1,0 +1,13 @@
+class Solution:
+    def countPoints(self, rings: str) -> int:
+        rods = []
+        for c in range(10):
+            rods.append(set())
+        for idx in range(1,len(rings),2):
+            rods[ord(rings[idx]) - 48].add(rings[idx-1])
+        
+        count = 0 
+        for c in range(10):
+            if len(rods[c]) == 3:
+                count += 1
+        return count
