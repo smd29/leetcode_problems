@@ -1,0 +1,26 @@
+from random import randint
+class Solution:
+
+    def __init__(self, nums: List[int]):
+        self.nums = nums
+
+    def pick(self, target: int) -> int:
+        samples = 0 
+        reservoir = 0 
+        for idx, val in enumerate(self.nums):
+            if val == target:
+                samples += 1
+                
+                if samples == 1:
+                    reservoir = idx
+                else:
+                    ans = randint(1,samples)
+                    
+                    if ans == 1:
+                        reservoir = idx
+        return reservoir 
+
+
+# Your Solution object will be instantiated and called as such:
+# obj = Solution(nums)
+# param_1 = obj.pick(target)
