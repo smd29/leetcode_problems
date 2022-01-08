@@ -1,0 +1,22 @@
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        s = s.strip(" ")
+        s = " ".join(s.split())
+        s = s[::-1]
+        start = 0
+        res = ""
+        blank = 0
+        for i in range(len(s)):
+            if s[i] == " ":
+                blank += 1
+        for i in range(len(s)):
+            if blank > 0:
+                if s[i] == " ":
+                    val = s[start:i][::-1]
+                    res += val + " "
+                    start = i + 1
+                    blank -= 1
+            else:
+                val = s[start:][::-1]
+                res += val
+                return res
