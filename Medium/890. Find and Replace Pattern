@@ -1,0 +1,21 @@
+class Solution:
+    def findAndReplacePattern(self, words: List[str], pattern: str) -> List[str]:
+        def find_pattern(s):
+            res = ""
+            pattern_dict = {}
+            val = 0
+            for c in s:
+                if c in pattern_dict:
+                    val = pattern_dict[c]
+                    res += str(val)
+                else:
+                    pattern_dict[c] = val 
+                    res += str(val)
+                    val += 1
+            return res
+        res = []
+        patt = find_pattern(pattern)
+        for char in words:
+            if find_pattern(char) == patt:
+                res.append(char)
+        return res
