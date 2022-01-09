@@ -1,0 +1,43 @@
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        if len(p) > len(s):
+            return []
+        freq_p = {}
+        for char in p:
+            if char in freq_p:
+                freq_p[char] += 1
+            else:
+                freq_p[char] = 1
+        
+        size = len(p)
+        #for the first size chars, find freq
+        freq = {}
+        for idx in range(size):
+            if s[idx] in freq:
+                freq[s[idx]] += 1
+            else:
+                freq[s[idx]] = 1
+        
+        start = []
+        if freq == freq_p:
+            start.append(0)
+            
+        for idx in range(size,len(s)):
+            elem1 = s[idx]
+            #add the current elem in dictionary
+            if elem1 in freq:
+                freq[elem1] += 1
+            else:
+                freq[elem1] = 1
+            
+            #remove the s[idx-size] from dict
+            elem2 = s[idx-size]
+            if freq[elem2] > 1:
+                freq[elem2] -= 1
+            else:
+                freq.pop(elem2)
+            
+            #check if two dictionaries are same or not
+            if freq == freq_p:
+                start.append(idx-size+1)
+        return start
