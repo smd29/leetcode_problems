@@ -1,0 +1,16 @@
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        pf_sum_dict = {}
+        pf_sum_dict[0] = 1
+        sum = 0 
+        count = 0 
+        for idx in range(len(nums)):
+            sum += nums[idx]
+            if sum - k in pf_sum_dict:
+                count += pf_sum_dict[sum-k]
+            
+            if sum in pf_sum_dict:
+                pf_sum_dict[sum] += 1
+            else:
+                pf_sum_dict[sum] = 1
+        return count
