@@ -1,0 +1,17 @@
+class Solution:
+    def kthGrammar(self, n: int, k: int) -> int:
+        #for the k th symbol on n-th row, find ceil(k/2) on n-1 th row
+        if n == 1:
+            return 0 
+        parent = self.kthGrammar(n-1,ceil(k/2))
+        isKOdd = (k % 2 == 1)
+        if parent == 1:
+            if isKOdd:
+                return 1
+            else:
+                return 0
+        else:
+            if isKOdd:
+                return 0
+            else:
+                return 1
