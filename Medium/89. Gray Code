@@ -1,0 +1,10 @@
+class Solution:
+    def grayCode(self, n: int) -> List[int]:
+        def helper(n):
+            if n == 1:
+                return ['0','1']
+            res = helper(n-1)
+            return ['0'+ s for s in res] + ['1' + s for s in res[::-1]]
+        #helper(n) will result binary values in string representation, at this point
+        
+        return [int(s,2) for s in helper(n)]
