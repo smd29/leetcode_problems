@@ -1,0 +1,15 @@
+class Solution:
+    def wateringPlants(self, plants: List[int], capacity: int) -> int:
+        steps = 0 
+        max_capacity = capacity
+        for idx in range(len(plants)):
+            if plants[idx] <= capacity:
+                #water it 
+                capacity -= plants[idx]
+                steps += 1
+            else:
+                go_backward = idx 
+                go_forward = idx + 1
+                steps += go_forward + go_backward
+                capacity = max_capacity - plants[idx] # refill the can and water the plant
+        return steps
