@@ -1,0 +1,9 @@
+class Solution:
+    def minOperations(self, n: int) -> int:
+        median = n 
+        ans = 0 
+        val = 1
+        while val <= n:
+            ans += (n - val)
+            val += 2
+        return ans
