@@ -1,0 +1,9 @@
+class Solution:
+    def destCity(self, paths: List[List[str]]) -> str:
+        city_src = set()
+        city_dest = set()
+        for city in paths:
+            city_src.add(city[0])
+            city_dest.add(city[1])
+        
+        return (city_dest - city_src).pop()
