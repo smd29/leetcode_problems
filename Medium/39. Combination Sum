@@ -1,0 +1,21 @@
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        def backtrack(idx,subset,target):
+            if idx == len(candidates):
+                if target == 0:
+                    res.append(subset[::])
+                return
+            #add the element and check if the same element can be added again
+            if candidates[idx] <= target:
+                subset.append(candidates[idx])
+                target -= candidates[idx]
+                backtrack(idx,subset,target)
+            
+                #do not add the element and move to next element
+                subset.pop()
+                target += candidates[idx]
+            backtrack(idx+1,subset,target)
+            
+        backtrack(0,[],target)
+        return res
