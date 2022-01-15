@@ -1,0 +1,14 @@
+class Solution:
+    def sumOfUnique(self, nums: List[int]) -> int:
+        nums_dict = {}
+        sum = 0 
+        for val in nums:
+            if val in nums_dict:
+                nums_dict[val] += 1
+            else:
+                nums_dict[val] = 1
+                
+        for key in nums_dict:
+            if nums_dict[key] == 1:
+                sum += key
+        return sum
