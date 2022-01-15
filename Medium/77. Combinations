@@ -1,0 +1,17 @@
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        res = []
+        def backtrack(count,subset,next_val):
+            if count == k:
+                res.append(subset[::])
+            else:
+                for val in range(next_val,n+1):
+                    #add val
+                    subset.append(val)
+                    #backtrack
+                    backtrack(count+1,subset,val+1)
+                    #remove val
+                    subset.pop()
+        
+        backtrack(0,[],1)
+        return res
