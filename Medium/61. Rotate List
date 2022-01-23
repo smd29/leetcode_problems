@@ -1,0 +1,63 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if not head:
+            return
+        #find length
+        curr = head 
+        length = 0
+        while curr:
+            curr = curr.next
+            length += 1
+            
+        k = k % length
+        if k == 0:
+            return head 
+        
+        def reverse(node,rotate):
+            prevNode = None 
+            nextNode = None 
+            curr = node 
+            itr = 0
+            if rotate == 0:
+                while curr:
+                    nextNode = curr.next 
+                    curr.next = prevNode
+                    prevNode = curr
+                    curr = nextNode
+                node = prevNode
+                return node
+            else:
+                cnt = 0
+                while curr and cnt < rotate:
+                    nextNode = curr.next 
+                    curr.next = prevNode
+                    prevNode = curr
+                    curr = nextNode
+                    cnt += 1
+                node = prevNode
+                return node
+        #reverse the entire list
+        head = reverse(head,0)
+        
+        #need to reverse first k nodes and remaining nodes and merge them 
+        #will do the second part first, so that we don't lose the link 
+        cnt = 1
+        temp = head
+        while cnt < k:
+            temp = temp.next
+            cnt += 1
+        second = temp.next
+        head_second = reverse(second,0)
+        temp = head
+        head_first = reverse(head,k)
+        
+        curr = head_first
+        while curr.next:
+            curr = curr.next
+        curr.next = head_second
+        return head_first
