@@ -1,0 +1,17 @@
+class Solution:
+    def validMountainArray(self, arr: List[int]) -> bool:
+        if len(arr) < 3:
+            return False
+        idx = 1
+        while idx < len(arr) and arr[idx] >= arr[idx-1]:
+            if arr[idx] == arr[idx-1]:
+                return False
+            idx += 1
+        if idx == 1 or idx == len(arr):
+            return False
+        #peak is idx - 1
+        while idx < len(arr):
+            if arr[idx] >= arr[idx-1]:
+                return False
+            idx += 1
+        return True
