@@ -1,0 +1,13 @@
+from collections import Counter
+class Solution:
+    def minSetSize(self, arr: List[int]) -> int:
+        freq = dict(Counter(arr))
+        size = len(arr)
+        freq = dict(sorted(freq.items(), key=lambda item: item[1],reverse = True))
+        cnt = 0 
+        curr_size = 0
+        for item in freq:
+            curr_size += freq[item]
+            cnt += 1
+            if curr_size >= size // 2:
+                return cnt
