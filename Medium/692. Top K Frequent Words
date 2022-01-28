@@ -1,0 +1,16 @@
+class Solution:
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        word_dict = {}
+        for char in words:
+            if char in word_dict:
+                word_dict[char] += 1
+            else:
+                word_dict[char] = 1
+        heap = [[-word_dict[item], item] for item in word_dict]
+        heapq.heapify(heap)
+        res = []
+        while k > 0:
+            elem = heapq.heappop(heap)
+            k -= 1
+            res.append(elem[1])
+        return res
