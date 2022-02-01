@@ -1,0 +1,15 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def constructMaximumBinaryTree(self, nums: List[int]) -> Optional[TreeNode]:
+        if not nums:
+            return None
+        root = max(nums)
+        idx = nums.index(root)
+        left_tree = self.constructMaximumBinaryTree(nums[:idx])
+        right_tree = self.constructMaximumBinaryTree(nums[idx+1:])
+        return TreeNode(nums[idx],left_tree,right_tree)
