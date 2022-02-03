@@ -1,0 +1,20 @@
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        nums.sort()
+        res_set = set()
+        
+        for idx in range(len(nums)-3):
+            for idx2 in range(idx+1,len(nums)-2):
+                left = idx2 + 1
+                right = len(nums) - 1
+                while left < right:
+                    total = nums[idx] + nums[idx2] + nums[left] + nums[right]
+                    if total == target:
+                        res_set.add(tuple([nums[idx], nums[idx2], nums[left], nums[right]]))
+                        left += 1
+                        right -= 1
+                    elif total < target:
+                        left += 1
+                    else:
+                        right -= 1
+        return list(res_set)
