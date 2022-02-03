@@ -1,0 +1,25 @@
+class Solution:
+    def fourSumCount(self, A: List[int], B: List[int], C: List[int], D: List[int]) -> int:
+        AB_dict = {}
+        CD_dict = {}
+        count = 0
+        size = len(A)
+        
+        for idx in range(size):
+            for idx2 in range(size):
+                if A[idx] + B[idx2] in AB_dict:
+                    AB_dict[A[idx] + B[idx2]] += 1
+                else:
+                    AB_dict[A[idx] + B[idx2]] = 1
+                
+                if C[idx] + D[idx2] in CD_dict:
+                    CD_dict[C[idx] + D[idx2]] += 1
+                else:
+                    CD_dict[C[idx] + D[idx2]] = 1
+        
+        for key in AB_dict:
+            target = 0 - key
+            if target in CD_dict:
+                #possibilities = AB_dict[key] * CD_dict[target]
+                count += AB_dict[key] * CD_dict[target]
+        return count
