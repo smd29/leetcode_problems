@@ -1,0 +1,16 @@
+class Solution:
+    def subarraysDivByK(self, nums: List[int], k: int) -> int:
+        pf_sum_dict = {}
+        pf_sum_dict[0] = 1
+        sum = 0 
+        count = 0 
+        for idx in range(len(nums)):
+            sum += nums[idx]
+            key = sum % k 
+            if key in pf_sum_dict:
+                count += pf_sum_dict[key]
+                pf_sum_dict[key] += 1
+            else:
+                pf_sum_dict[key] = 1
+        return count
+#TC -> O(N) || SC -> O(N)
