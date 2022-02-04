@@ -1,0 +1,21 @@
+class Solution:
+    def findMaxLength(self, nums: List[int]) -> int:
+        currSum = 0 
+        freq = {}
+        maxLen = 0 
+        for idx, val in enumerate(nums):
+            if val == 0:
+                currSum -= 1
+            else:
+                currSum += 1
+            
+            if currSum == 0:
+                maxLen = max(maxLen,idx+1)
+                
+            if currSum not in freq:
+                freq[currSum] = idx
+            else:
+                maxLen = max(maxLen,idx - freq[currSum])
+        return maxLen
+    
+    #TC -> O(n) || SC -> O(n)
