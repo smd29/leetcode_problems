@@ -1,0 +1,12 @@
+class Solution:
+    def maxChunksToSorted(self,A: List[int]) -> int:
+        last_pos = A[0]
+        idx = 0 
+        count = 0
+        while last_pos < len(A):
+            while idx <= last_pos:
+                last_pos = max(A[idx], last_pos)
+                idx += 1
+            count += 1
+            last_pos = idx
+        return count
