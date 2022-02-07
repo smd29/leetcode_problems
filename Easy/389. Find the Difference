@@ -1,0 +1,15 @@
+class Solution:
+    def findTheDifference(self, s: str, t: str) -> str:
+        t_dict = {}
+        for c in t:
+            if c in t_dict:
+                t_dict[c] += 1
+            else:
+                t_dict[c] = 1
+        for c in s:
+            if t_dict[c] == 1:
+                del t_dict[c] 
+            else:
+                t_dict[c] -= 1
+        for key in t_dict:
+            return key
