@@ -1,0 +1,37 @@
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        rows, cols = len(matrix), len(matrix[0])
+        r, c,elems = 0,0, rows*cols
+        dummy_mat = [[None for _ in range(cols)]for _ in range(rows)]
+        res = []
+        direction = 'right'
+        while elems > 0:
+            if dummy_mat[r][c] is None:
+                dummy_mat[r][c] = matrix[r][c]
+                res.append(matrix[r][c])
+                elems -= 1
+            if direction == 'right':
+                if c < cols - 1 and dummy_mat[r][c+1] is None:
+                    c += 1
+                else:
+                    direction = 'down'
+                    r += 1
+            elif direction == 'down':
+                if r < rows - 1 and dummy_mat[r+1][c] is None:
+                    r += 1
+                else:
+                    direction = 'left'
+                    c -= 1
+            elif direction == 'left':
+                if c > -1 and dummy_mat[r][c-1] is None:
+                    c -= 1
+                else:
+                    direction = 'up'
+                    r -= 1
+            elif direction == 'up':
+                if r > -1 and dummy_mat[r-1][c] is None:
+                    r -= 1
+                else:
+                    direction = 'right'
+                    c += 1
+        return res
