@@ -1,0 +1,14 @@
+from collections import Counter
+class Solution:
+    def findPairs(self, nums: List[int], k: int) -> int:
+        freq = dict(Counter(nums))
+        pairs = 0
+        
+        for items in freq:
+            if k == 0:
+                if freq[items] > 1:
+                    pairs += 1
+            else:
+                if items + k in freq:
+                    pairs += 1
+        return pairs
