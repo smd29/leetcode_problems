@@ -2,36 +2,37 @@ class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         rows, cols = len(matrix), len(matrix[0])
         r, c,elems = 0,0, rows*cols
-        dummy_mat = [[None for _ in range(cols)]for _ in range(rows)]
         res = []
         direction = 'right'
         while elems > 0:
-            if dummy_mat[r][c] is None:
-                dummy_mat[r][c] = matrix[r][c]
+            if matrix[r][c] is not None:
                 res.append(matrix[r][c])
+                matrix[r][c] = None
                 elems -= 1
             if direction == 'right':
-                if c < cols - 1 and dummy_mat[r][c+1] is None:
+                if c < cols - 1 and matrix[r][c+1] is not None:
                     c += 1
                 else:
                     direction = 'down'
                     r += 1
             elif direction == 'down':
-                if r < rows - 1 and dummy_mat[r+1][c] is None:
+                if r < rows - 1 and matrix[r+1][c] is not None:
                     r += 1
                 else:
                     direction = 'left'
                     c -= 1
             elif direction == 'left':
-                if c > -1 and dummy_mat[r][c-1] is None:
+                if c > -1 and matrix[r][c-1] is not None:
                     c -= 1
                 else:
                     direction = 'up'
                     r -= 1
             elif direction == 'up':
-                if r > -1 and dummy_mat[r-1][c] is None:
+                if r > -1 and matrix[r-1][c] is not None:
                     r -= 1
                 else:
                     direction = 'right'
                     c += 1
         return res
+    
+#TC -> O(m*n) || SC -> O(1)
