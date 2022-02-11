@@ -1,0 +1,35 @@
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        s1_freq = {}
+        for c in s1:
+            if c in s1_freq:
+                s1_freq[c] += 1
+            else:
+                s1_freq[c] = 1
+        n = len(s1)
+        first = s2[:n]
+        s2_freq = {}
+        for c in first:
+            if c in s2_freq:
+                s2_freq[c] += 1
+            else:
+                s2_freq[c] = 1
+        if s2_freq == s1_freq:
+            return True
+        start,end = 0, n
+        while end < len(s2):
+            add = s2[end]
+            remove = s2[start]
+            if add in s2_freq:
+                s2_freq[add] += 1
+            else:
+                s2_freq[add] = 1
+            if s2_freq[remove] == 1:
+                del s2_freq[remove]
+            else:
+                s2_freq[remove] -= 1
+            if s2_freq == s1_freq:
+                return True
+            start += 1
+            end += 1
+        return False
