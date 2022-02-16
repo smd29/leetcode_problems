@@ -1,20 +1,16 @@
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
-        #create a pf_sum dictionary and store the indices 
-        pf_sum = [0] * len(nums)
-        pf_sum[0] = nums[0] % k 
-        for idx in range(1,len(nums)):
-            pf_sum[idx] = (pf_sum[idx-1] + nums[idx]) % k
+        pf_dict = {}
+        pf_dict[0] = -1
+        curr_sum = 0 
         
-        pf_dict = collections.defaultdict(set)
-        for idx, val in enumerate(pf_sum):
-            if val == 0 and idx != 0:
-                return True
-            if val in pf_dict:
-                for key in pf_dict[val]:
-                    if idx - key > 1:
-                        return True
-                pf_dict[val].add(idx)    
+        for idx in range(len(nums)):
+            curr_sum += nums[idx]
+            if k != 0:
+                curr_sum %= k 
+            if curr_sum in pf_dict:
+                if idx - pf_dict[curr_sum] > 1:
+                    return True
             else:
-                pf_dict[val] = {idx}
+                pf_dict[curr_sum] = idx
         return False
