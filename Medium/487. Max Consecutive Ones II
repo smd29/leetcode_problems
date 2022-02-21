@@ -1,0 +1,27 @@
+class Solution:
+    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        #for each zero, check how many consecutive ones are there in left and in right
+        n = len(nums)
+        one_cnt = 0 
+        for val in nums:
+            if val == 1:
+                one_cnt += 1
+        if one_cnt == n or one_cnt == n-1:
+            return n
+        max_one = 0 
+        for idx in range(n):
+            if nums[idx] == 0:
+                left_cnt = 0
+                right_cnt = 0 
+                for j in range(idx-1,-1,-1):
+                    if nums[j] == 1:
+                        left_cnt += 1
+                    else:
+                        break
+                for j in range(idx+1,n):
+                    if nums[j] == 1:
+                        right_cnt += 1
+                    else:
+                        break
+                max_one = max(left_cnt+right_cnt+1,max_one)
+        return max_one
