@@ -1,0 +1,26 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+        def dfs(node,parent = None):
+            if node:
+                node.parent = parent
+                dfs(node.left,node)
+                dfs(node.right,node)
+        dfs(root)
+        queue = collections.deque([(target,0)])
+        traversed = {target}
+        while queue:
+            if queue[0][1] == k:
+                return [node.val for node, distance in queue]
+            node, distance = queue.popleft()
+            for item in (node.left,node.right,node.parent):
+                if item and item not in traversed:
+                    traversed.add(item)
+                    queue.append((item,distance+1))
+        return []
