@@ -1,0 +1,11 @@
+class Solution:
+    def minDeletions(self, s: str) -> int:
+        char_freq = collections.Counter(s)
+        unique_freq = set()
+        deletions = 0 
+        for char,freq in char_freq.items():
+            while freq > 0 and freq in unique_freq:
+                freq -= 1
+                deletions += 1
+            unique_freq.add(freq)
+        return deletions
