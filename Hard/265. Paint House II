@@ -1,0 +1,16 @@
+class Solution:
+    def minCostII(self, costs: List[List[int]]) -> int:
+        n, k = len(costs), len(costs[0])
+        dp = [[0 for _ in range(k)]for _ in range(n)]
+        dp[0] = costs[0]
+        
+        #dp[h][c] -> cost to color h th house with color c
+        for idx in range(1,n):
+            for col in range(k):
+                #find the minimum 
+                mini = float('inf')
+                for c in range(k):
+                    if c != col:
+                        mini = min(mini,dp[idx-1][c])
+                dp[idx][col] = costs[idx][col] + mini
+        return min(dp[-1])
