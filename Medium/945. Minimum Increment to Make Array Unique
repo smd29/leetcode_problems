@@ -1,0 +1,14 @@
+from collections import Counter
+class Solution:
+    def minIncrementForUnique(self, nums: List[int]) -> int:
+        _max = max(nums)
+        freq = Counter(nums)
+        moves = 0 
+        duplicates = []
+        for idx in range(len(nums)+_max):
+            if freq[idx] > 1:
+                duplicates.extend([idx] * (freq[idx]-1))
+            elif duplicates and freq[idx] == 0: # we don't have this element
+                elem = duplicates.pop()
+                moves += idx - elem
+        return moves
