@@ -1,0 +1,11 @@
+class Solution:
+    def findBuildings(self, heights: List[int]) -> List[int]:
+        res = []
+        max_height = 0
+        for idx in range(len(heights)-1,-1,-1):
+            if heights[idx] > max_height:
+                max_height = heights[idx]
+                res.append(idx)
+        
+        return res[::-1]    
+    #TC -> O(n) || SC -> O(1)
