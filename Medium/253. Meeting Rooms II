@@ -20,3 +20,21 @@ class Solution:
                 rooms -= 1
             res = max(res,rooms)
         return res
+
+
+#solution 2:
+
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        rooms_heap = []
+        intervals.sort(key=lambda x:x[0])
+        #construct min heap based of end times
+        heapq.heappush(rooms_heap,intervals[0][1])
+        for time in intervals[1:]:
+            #if the last element of the heap is less than the current start, then we don't need extra room
+            if rooms_heap[0] <= time[0]:
+                heapq.heappop(rooms_heap)
+            
+            #add the new room
+            heapq.heappush(rooms_heap,time[1])
+        return len(rooms_heap)
