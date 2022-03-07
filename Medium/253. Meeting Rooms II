@@ -1,0 +1,22 @@
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        start, end = [], []
+        for idx in intervals:
+            start.append(idx[0])
+            end.append(idx[1])
+        start.sort()
+        end.sort()
+        idx1, idx2 = 0, 0 
+        rooms = 0
+        res = 0
+        while idx1 < len(start):
+            #if we encounter a new start, increment room
+            #if we decrement a new end, decrement room
+            if start[idx1] < end[idx2]:
+                rooms += 1
+                idx1 += 1
+            else:
+                idx2 += 1
+                rooms -= 1
+            res = max(res,rooms)
+        return res
