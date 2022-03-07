@@ -1,0 +1,23 @@
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        #traverse left to right
+        #monotonic decreasing stack
+        map_dict = {}
+        for item in nums1:
+            map_dict[item] = -1
+        stack = []
+        for idx, val in enumerate(nums2):
+            if not stack:
+                stack.append((idx,val))
+            else:
+                if stack[-1][1] > val:
+                    stack.append((idx,val))
+                else:
+                    while stack and stack[-1][1] < val:
+                        pop_idx, pop_val = stack.pop()
+                        map_dict[pop_val] = val 
+                    stack.append((idx,val))
+        res = []
+        for item in nums1:
+            res.append(map_dict[item])
+        return res
