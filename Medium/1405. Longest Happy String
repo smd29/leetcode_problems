@@ -1,0 +1,26 @@
+class Solution:
+    def longestDiverseString(self, a: int, b: int, c: int) -> str:
+        maxheap = []
+        for cnt,char in [(-a,'a'),(-b,'b'),(-c,'c')]:
+            if cnt !=0:
+                heapq.heappush(maxheap,(cnt,char))          
+        res = ""
+        
+        while maxheap:
+            cnt1, char1 = heapq.heappop(maxheap)
+            if len(res) > 1 and res[-1] == res[-2] == char1:
+                #then we need to find the second max
+                #if the second max doesn't exist 
+                if not maxheap:
+                    break
+                cnt2, char2 = heapq.heappop(maxheap)
+                res += char2
+                cnt2 += 1 #as we have converted all the values to negative for min heap
+                if cnt2 < 0:
+                    heapq.heappush(maxheap,(cnt2,char2))
+            else:
+                res += char1
+                cnt1 += 1
+            if cnt1 < 0:
+                heapq.heappush(maxheap,(cnt1,char1))
+        return res
