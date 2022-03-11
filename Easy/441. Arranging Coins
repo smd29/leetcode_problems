@@ -1,9 +1,15 @@
 class Solution:
     def arrangeCoins(self, n: int) -> int:
-        val = total = 0
-        while total < n:
-            val += 1 
-            total += val
-        if total == n:
-            return val
-        return val - 1
+        #sum of first k natural numbers -> (k*(k+1)) // 2 --> (k^2 + k) // 2
+        low, high = 0, n 
+        while low <= high:
+            mid = low + (high - low) // 2
+            coins = (mid*(mid+1)) // 2
+            if coins == n:
+                return mid 
+            elif coins < n:
+                ans = mid 
+                low = mid + 1
+            else:
+                high = mid - 1
+        return ans
