@@ -1,0 +1,23 @@
+class Solution:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        remove_idx = set()
+        stack = []
+        for idx, c in enumerate(s):
+            if c not in "()":
+                continue
+            if c == "(":
+                stack.append(idx)
+            elif not stack:
+                #the elemenet is not in stack, it has to be deleted
+                remove_idx.add(idx)
+            else:
+                stack.pop()
+        res = ""
+        while stack:
+            val = stack.pop()
+            remove_idx.add(val)
+            
+        for idx, c in enumerate(s):
+            if idx not in remove_idx:
+                res += c
+        return res
