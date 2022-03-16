@@ -1,0 +1,29 @@
+class Solution:
+    def maxLength(self, arr: List[str]) -> int:
+        charSet = set()
+        
+        def non_unique(charSet,s):
+            curr = set()
+            for c in s:
+                if c in charSet or c in curr:
+                    return True
+                curr.add(c)
+            return False
+        
+        def backtrack(idx):
+            if idx == len(arr):
+                return len(charSet)
+            
+            res = 0 
+            if not non_unique(charSet,arr[idx]):
+                for c in arr[idx]:
+                    charSet.add(c)
+                
+                res = backtrack(idx+1)
+                
+                for c in arr[idx]:
+                    charSet.remove(c)
+            
+            return max(res,backtrack(idx+1))
+        
+        return backtrack(0)
