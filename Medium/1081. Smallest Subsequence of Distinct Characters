@@ -1,0 +1,16 @@
+class Solution:
+    def smallestSubsequence(self, s: str) -> str:
+        seen = set()
+        stack = []
+        
+        #store last index
+        last_idx = {c:idx for idx,c in enumerate(s)}
+        for idx,c in enumerate(s):
+            if c not in seen:
+                #we will remove from stack, if current elem is less than last stack element and it still appears in the later part of the string
+                while stack and stack[-1] > c and idx < last_idx[stack[-1]]:
+                    elem = stack.pop()
+                    seen.discard(elem)
+                stack.append(c)
+                seen.add(c)
+        return ''.join(stack)
