@@ -1,0 +1,14 @@
+class Solution:
+    def minDominoRotations(self, tops: List[int], bottoms: List[int]) -> int:
+        for target in [tops[0],bottoms[0]]:
+            missingTop, missingBottom = 0, 0 
+            for idx, pair in enumerate(zip(tops,bottoms)): #zip to iterate over two arrays
+                top, bottom = pair
+                if not (top == target or bottom == target):
+                    break
+                
+                if top != target: missingTop += 1
+                if bottom != target: missingBottom += 1
+                if idx == len(tops) - 1:
+                    return min(missingTop,missingBottom)
+        return -1
