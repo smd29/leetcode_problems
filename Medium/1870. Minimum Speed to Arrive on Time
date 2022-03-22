@@ -1,0 +1,27 @@
+class Solution:
+    def minSpeedOnTime(self, dist: List[int], hour: float) -> int:
+        if len(dist) > math.ceil(hour):
+            return -1
+        #binary search on speed
+        
+        low = 1
+        high = max(max(dist), math.ceil(dist[-1]/0.01))
+        ans = high
+        while low < high:
+            mid = (low + high) // 2
+            if self.isMinSpeed(dist, mid, hour):
+                ans = mid
+                high = mid
+            else:
+                low = mid + 1
+
+        return ans
+    
+    def isMinSpeed(self,dist,speed,hour):
+        time = 0 
+        for distance in dist[:-1]:
+            time += math.ceil(distance/speed)
+        time += (dist[-1]/speed)
+        if time <= hour:
+            return True
+        return False
