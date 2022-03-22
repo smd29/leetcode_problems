@@ -1,0 +1,19 @@
+class Solution:
+    def nthMagicalNumber(self, n: int, a: int, b: int) -> int:
+        low = 2
+        high = min(a, b) * n
+        mod = (10 ** 9) + 7
+        lcm = (a * b) // self.gcd(a, b)
+        while low <= high:
+            mid = (low + high) // 2
+            smaller = (mid // a) + (mid // b) - (mid // lcm)
+            if smaller < n:
+                low = mid + 1
+            else:
+                high = mid - 1
+        return low % mod
+
+    def gcd(self, a, b):
+        if b == 0:
+            return a
+        return self.gcd(b, a % b)
