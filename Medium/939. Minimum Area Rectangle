@@ -1,0 +1,22 @@
+class Solution:
+    def minAreaRect(self, points: List[List[int]]) -> int:
+        min_area = float('inf')
+        n = len(points)
+        #add all points in the set
+        points_set = set()
+        for pt in points:
+            points_set.add(tuple(pt))
+        
+        for x in range(n):
+            for y in range(n):
+                #check if this 2 points are valid to make a diagonal
+                #X-axis = points[idx][0] Y-axis = points[idx][1]
+                if points[x][0] < points[y][0] and points[x][1] > points[y][1]:
+                    #generate new pair
+                    pt1 = (points[x][0],points[y][1])
+                    pt2 = (points[y][0],points[x][1])
+                    if pt1 in points_set and pt2 in points_set:
+                        #we have the rectangle
+                        area = (abs(points[x][0]-points[y][0])*abs(points[y][1]-points[x][1]))
+                        min_area = min(min_area,area)
+        return min_area if min_area != float('inf') else 0
