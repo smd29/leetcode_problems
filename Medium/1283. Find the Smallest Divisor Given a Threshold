@@ -1,0 +1,22 @@
+from math import ceil
+class Solution:
+    def smallestDivisor(self, nums: List[int], threshold: int) -> int:
+        #binary search on divisor
+        low_div, high_div = 1, max(nums)
+        while low_div <= high_div:
+            mid = (low_div + high_div) // 2
+            if self.islessThreshold(nums,mid,threshold):
+                divisor = mid 
+                high_div = mid - 1
+            else:
+                low_div = mid + 1
+        #divisor is low_div
+        return divisor
+            
+    def islessThreshold(self,arr,div,threshold):
+        _sum = 0 
+        for val in arr:
+            _sum += ceil(val / div)
+            if _sum > threshold:
+                return False
+        return True
