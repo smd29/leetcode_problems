@@ -1,0 +1,33 @@
+class Solution:
+    def minDays(self, bloomDay: List[int], m: int, k: int) -> int:
+        if m*k > len(bloomDay):
+            return -1
+        low, high = min(bloomDay), max(bloomDay)
+        ans = high
+        while low <= high:
+            mid = (low + high) // 2
+            if self.ifMinDays(bloomDay,mid,m,k):
+                ans = mid 
+                high = mid - 1
+            else:
+                low = mid + 1
+        return ans
+            
+            
+            
+    def ifMinDays(self,arr,day,m,k):
+        arr = [(elem - day) for elem in arr]
+        #find is it possible to find k consecutive elements, which are less than 1 (for m times)
+        flowers = 0
+        for val in arr:
+            if val > 0:
+                flowers = 0
+            else:
+                flowers += 1
+            if flowers == k:
+                m -= 1
+                flowers = 0
+
+        if m > 0:
+            return False
+        return True
