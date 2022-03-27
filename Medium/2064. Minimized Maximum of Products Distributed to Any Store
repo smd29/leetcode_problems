@@ -1,0 +1,26 @@
+from math import ceil
+class Solution:
+    def minimizedMaximum(self, n: int, quantities: List[int]) -> int:
+        if n == 1:
+            return quantities[0]
+        low, high = 0, max(quantities)
+        ans = high
+        while low <= high:
+            mid = (low + high) // 2
+            if mid == 0:
+                return 1 
+            if self.ifMin(quantities,mid,n):
+                ans = mid
+                high = mid - 1
+            else:
+                low = mid + 1
+        return ans
+            
+            
+    def ifMin(self,arr,val,n):
+        _sum = 0 
+        for elm in arr:
+            _sum += ceil(elm/val)
+            if _sum > n:
+                return False
+        return True
