@@ -1,0 +1,21 @@
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        val = image[sr][sc]
+        if val == newColor:
+            return image
+        rows, cols = len(image), len(image[0])
+        def dfs(r,c):
+            #find all possible cells 
+            if image[r][c] == val:
+                image[r][c] = newColor
+                if r-1 >= 0: 
+                    dfs(r-1,c)
+                if r+1 < rows:
+                    dfs(r+1,c)
+                if c-1 >= 0:
+                    dfs(r,c-1)
+                if c+1 < cols:
+                    dfs(r,c+1)
+                
+        dfs(sr,sc)
+        return image
