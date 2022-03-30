@@ -1,0 +1,30 @@
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        tickets.sort()
+        adj_list = {src: [] for src, dst in tickets}
+        
+        for src, dest in tickets:
+            adj_list[src].append(dest)
+        
+        res = ["JFK"]
+        
+        def dfs(src):
+            if len(tickets) + 1 == len(res):
+                return True
+            #no destination from the source
+            if src not in adj_list:
+                #not a valid path
+                return False
+            temp_path = adj_list[src]
+            for idx, dest in enumerate(temp_path):
+                adj_list[src].pop(idx)
+                res.append(dest)
+                if dfs(dest):
+                    return True
+                else:
+                    #if it is not a valid track, backtrack. That is why use the temp arr
+                    adj_list[src].insert(idx,dest)
+                    res.pop()
+            return False
+        dfs("JFK")
+        return res
