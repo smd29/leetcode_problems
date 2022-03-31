@@ -1,0 +1,32 @@
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        if t == "":
+            return ""
+        t_count, window = {}, {}
+        for c in t:
+            t_count[c] = 1 + t_count.get(c,0)
+        
+        curr_size, reqd_size = 0, len(t_count)
+        res, resLen = [None,None], float('inf')
+        
+        start = 0 
+        for end in range(len(s)):
+            c = s[end]
+            window[c] = 1 + window.get(c,0)
+            
+            if c in t_count and window[c] == t_count[c]:
+                curr_size += 1
+            
+            while curr_size == reqd_size:
+                if (end - start + 1) < resLen:
+                    resLen = end - start + 1
+                    res = [start, end]
+                window[s[start]] -= 1
+                if s[start] in t_count and window[s[start]] < t_count[s[start]]:
+                    curr_size -= 1
+                start += 1
+        
+        l, r = res
+        if resLen == float('inf'):
+            return ""
+        return s[l:r+1]
