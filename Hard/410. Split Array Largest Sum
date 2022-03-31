@@ -1,0 +1,31 @@
+class Solution:
+    def splitArray(self, nums: List[int], m: int) -> int:
+        if len(nums) == m:
+            return max(nums)
+        #minimize the maximum: Binary Search
+        low, high = 0, sum(nums)
+        if m == 1:
+            return high
+        while low <= high:
+            mid = (low+high) // 2
+            #if mid can be the largest sum
+            if self.helper(nums,m,mid):
+                high = mid - 1
+            else:
+                low = mid + 1
+        return low
+        
+    def helper(self,nums,m,target):
+        curr_sum = 0
+        m -= 1
+        for val in nums:
+            if val > target:
+                return False
+            curr_sum += val
+            if curr_sum > target:
+                m -= 1
+
+                curr_sum = val
+                if m < 0:
+                    return False
+        return True
