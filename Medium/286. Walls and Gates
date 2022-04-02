@@ -1,0 +1,25 @@
+class Solution:
+    def wallsAndGates(self, rooms: List[List[int]]) -> None:
+        """
+        Do not return anything, modify rooms in-place instead.
+        """
+        rows, cols = len(rooms), len(rooms[0])
+        empty = 0 
+        visited = set()
+        queue = collections.deque()
+        
+        for r in range(rows):
+            for c in range(cols):
+                if rooms[r][c] == 0:
+                    visited.add((r,c))
+                    queue.append([r,c,0])
+        
+        while queue:
+            row,col,dist = queue.popleft()
+            directions = [(0,1),(0,-1),(1,0),(-1,0)]
+            for dr,dc in directions:
+                r,c = row+dr, col+dc
+                if (r in range(rows) and c in range(cols) and rooms[r][c] == 2147483647 and (r,c) not in visited):
+                    rooms[r][c] = dist + 1
+                    visited.add((r,c))
+                    queue.append([r,c,dist+1])
