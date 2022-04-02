@@ -1,19 +1,27 @@
 class Solution:
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
-        n = len(graph)
-
-        adj_list = {}
-        for node in range(n):
-            adj_list[node] = graph[node]
-        
-        stack = [(0, [0])]
+        #dfs 
         res = []
+        stack = [(0,[0])]
+        target = len(graph) - 1
         while stack:
             node, path = stack.pop()
-            if node == n-1:#destination
+            if node == target:
                 res.append(path)
-                
-            for neighbor in adj_list[node]:
-                stack.append((neighbor,path+[neighbor]))
-        
+            else:
+                for neighbor in graph[node]:
+                    stack.append((neighbor,path+[neighbor]))
+        return res
+    
+        #bfs
+        res = []
+        queue = collections.deque([(0,[0])])
+        target = len(graph) - 1
+        while queue:
+            node, path = queue.popleft()
+            if node == target:
+                res.append(path)
+            else:
+                for neighbor in graph[node]:
+                    stack.append((neighbor,path+[neighbor]))
         return res
