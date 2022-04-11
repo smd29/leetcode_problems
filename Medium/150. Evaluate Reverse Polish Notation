@@ -1,0 +1,25 @@
+from math import floor,ceil
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        stack = []
+        for char in tokens:
+            if char not in ["+","-","*","/"]:
+                stack.append(char)
+            else:
+                #pop two elements 
+                val2 = int(stack.pop())
+                val1 = int(stack.pop())
+                if char == "+":
+                    stack.append(str(val1+val2))
+                elif char == "-":
+                    stack.append(str(val1-val2))
+                elif char == "*":
+                    stack.append(str(val1*val2))
+                else:
+                    val = val1/val2
+                    if val < 0:
+                        val = ceil(val)
+                    else:
+                        val = floor(val)
+                    stack.append(str(val))
+        return int(stack[-1])
