@@ -1,0 +1,23 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def increasingBST(self, root: TreeNode) -> TreeNode:
+        node_vals = []
+        def inOrder(node):
+            if node:
+                inOrder(node.left)
+                node_vals.append(node.val)
+                inOrder(node.right)
+        inOrder(root)
+        dummy = TreeNode(0)
+        curr = dummy
+        for val in node_vals:
+            node = TreeNode(val)
+            curr.right = node 
+            curr = curr.right
+        return dummy.right
+#TC:O(n) || SC:O(n)897. Increasing Order Search Tree
