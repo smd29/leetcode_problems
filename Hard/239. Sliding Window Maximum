@@ -1,0 +1,22 @@
+from collections import deque
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        #prepare a queue of len = k, of the elements which can be possible max of next window
+        possible_max_idx = deque()
+        res = []
+        n = len(nums)
+        for idx in range(k):
+            while len(possible_max_idx) != 0 and idx < n and nums[idx] >= nums[possible_max_idx[-1]]:
+                possible_max_idx.pop()
+            possible_max_idx.append(idx)
+        
+        for idx in range(k,n):
+            res.append(nums[possible_max_idx[0]])
+            while len(possible_max_idx) != 0 and nums[idx] >= nums[possible_max_idx[-1]]:
+                possible_max_idx.pop()
+            while len(possible_max_idx) != 0 and possible_max_idx[0] <= idx - k:
+                possible_max_idx.popleft()
+            possible_max_idx.append(idx)
+        res.append(nums[possible_max_idx[0]])
+    
+        return res
