@@ -1,0 +1,25 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def checkEqualTree(self, root: Optional[TreeNode]) -> bool:
+        nodeSum = {} 
+        def calculateNodeSum(node):
+            if node:
+                nodeSum[node] = calculateNodeSum(node.left) + calculateNodeSum(node.right) + node.val
+                return nodeSum[node]
+            else:
+                return 0
+        calculateNodeSum(root)
+        
+        total = nodeSum[root]
+        if total & 1:
+            return False
+        
+        for node,val in nodeSum.items():
+            if node != root and val == (total // 2):
+                return True 
+        return False
