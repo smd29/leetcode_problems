@@ -1,0 +1,36 @@
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        #find the correct position of x in arr
+        if x <= arr[0]:
+            return arr[:k]
+        if x >= arr[-1]:
+            return arr[-k:]
+        
+        low, high = 0, len(arr)
+        correct_pos = low
+        while low <= high:
+            mid = (low + high) // 2
+            if arr[mid] >= x:
+                correct_pos = mid 
+                high = mid - 1
+            else:
+                low = mid + 1
+        left_res = []
+        right_res = []
+        left,right = correct_pos-1, correct_pos
+        while len(left_res) + len(right_res) != k:
+            if left > -1:
+                left_dist = abs(arr[left]-x)
+            else:
+                left_dist = float('inf')
+            if right < len(arr):
+                right_dist = abs(arr[right]-x)
+            else:
+                right_dist = float('inf')
+            if left_dist <= right_dist:
+                left_res.append(arr[left])
+                left -= 1
+            else:
+                right_res.append(arr[right])
+                right += 1
+        return left_res[::-1]+right_res
