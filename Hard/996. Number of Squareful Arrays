@@ -1,0 +1,29 @@
+import math
+class Solution:
+    def numSquarefulPerms(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return 0
+        res = []
+        self.permutations(nums,0,res)
+        return len(res)
+        
+    def isPerfectSquare(self,num1,num2):
+        val = math.sqrt(num1+num2)
+        return math.floor(val) == math.ceil(val)
+    
+    def permutations(self,nums,idx,res):
+        if idx == len(nums):
+            res.append(nums.copy())
+            return 
+        
+        for i in range(idx,len(nums)):
+            if i != idx and nums[idx] == nums[i]:
+                #same element
+                continue 
+            nums[i],nums[idx] = nums[idx],nums[i]
+            if nums in res:
+                nums[i],nums[idx] = nums[idx],nums[i]
+                continue
+            if idx == 0 or (i > 0 and self.isPerfectSquare(nums[idx],nums[idx-1])):
+                self.permutations(nums,idx+1,res)
+            nums[i],nums[idx] = nums[idx],nums[i]
