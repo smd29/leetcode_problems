@@ -1,0 +1,23 @@
+# The knows API is already defined for you.
+# return a bool, whether a knows b
+# def knows(a: int, b: int) -> bool:
+
+class Solution:
+    def findCelebrity(self, n: int) -> int:
+        #current celeb is 0
+        celeb = 0 
+        for person in range(1,n):
+            if knows(celeb,person):
+                #he is not celeb anymore, update
+                celeb = person
+        if self.isCeleb(celeb,n):
+            return celeb
+        return -1
+                
+    def isCeleb(self,a,n):
+        for person in range(n):
+            if a == person:
+                continue
+            if knows(a,person) or not knows(person,a):
+                return False
+        return True
