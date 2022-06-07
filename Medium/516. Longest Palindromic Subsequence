@@ -1,0 +1,25 @@
+class Solution:
+    def longestPalindromeSubseq(self, s: str) -> int:
+        #take two pointers, start and end. if the characters match; then lcs(start+1,end-1)+2
+        #else max((start+1,end),(start,end-1))
+        #here we cannot go left to right, top down approach. 
+        #only upper diagonal is enough
+        
+        n = len(s)
+        dp = [[0 for c in range(n)]for r in range(n)]
+        
+        #calculating the answer when the length is 1
+        for r in range(n):
+            dp[r][r] = 1
+        
+        for length in range(2,n+1):
+            for r in range(n-length+1):
+                c = r + length - 1
+                if s[r] == s[c] and length == 2:
+                    dp[r][c] = 2 
+                elif s[r] == s[c]:
+                    dp[r][c] = dp[r+1][c-1] + 2
+                else:
+                    dp[r][c] = max(dp[r][c-1],dp[r+1][c])
+        
+        return dp[0][-1]
