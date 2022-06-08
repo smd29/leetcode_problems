@@ -1,0 +1,22 @@
+class Solution:
+    def countSubstrings(self, s: str) -> int:
+        ans = 0
+        n = len(s)
+        dp = [[False for c in range(n)]for r in range(n)]
+        for r in range(n-1,-1,-1):
+            for c in range(r,n):
+                #length = 1
+                if r == c:
+                    dp[r][c] = True 
+                    ans += 1
+                #length = 2
+                elif c == r + 1:
+                    if s[r] == s[c]:
+                        dp[r][c] = True
+                        ans += 1
+                #length > 2
+                else:
+                    if s[r] == s[c] and dp[r+1][c-1] == True:
+                        dp[r][c] = True
+                        ans += 1
+        return ans
