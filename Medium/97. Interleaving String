@@ -1,0 +1,46 @@
+class Solution:
+    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
+        rows, cols = len(s1), len(s2)
+        dp = [[False for c in range(cols+1)]for r in range(rows+1)]
+        if rows + cols != len(s3):
+            return False
+        
+        for i in range(0, rows + 1):
+            for j in range(0, cols + 1):
+
+                # two empty strings have an empty string
+                # as interleaving
+                if (i == 0 and j == 0):
+                    dp[i][j] = True
+
+                # s1 is empty
+                elif (i == 0):
+                    if (s2[j - 1] == s3[j - 1]):
+                        dp[i][j] = dp[i][j - 1]
+
+                # s2 is empty
+                elif (j == 0):
+                    if (s1[i - 1] == s3[i - 1]):
+                        dp[i][j] = dp[i - 1][j]
+
+                # Current character of s3 matches with
+                # current character of s1, but doesn't match
+                # with current character of s2
+                elif (s1[i - 1] == s3[i + j - 1] and
+                      s2[j - 1] != s3[i + j - 1]):
+                    dp[i][j] = dp[i - 1][j]
+
+                # Current character of s3 matches with
+                # current character of s2, but doesn't match
+                # with current character of s1
+                elif (s1[i - 1] != s3[i + j - 1] and
+                      s2[j - 1] == s3[i + j - 1]):
+                    dp[i][j] = dp[i][j - 1]
+
+                # Current character of s3 matches with
+                # that of both s1 and s2
+                elif (s1[i - 1] == s3[i + j - 1] and
+                      s2[j - 1] == s3[i + j - 1]):
+                    dp[i][j] = dp[i - 1][j] or dp[i][j - 1]
+
+        return dp[-1][-1]
