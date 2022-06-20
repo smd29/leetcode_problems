@@ -1,0 +1,15 @@
+class Solution:
+    def minimumLengthEncoding(self, words: List[str]) -> int:
+        trie = {}
+        for word in words:
+            root = trie 
+            for c in reversed(word):
+                if c not in root:
+                    root[c] = {}
+                root = root[c]
+        
+        def dfs(node,level):
+            if not node:
+                return level
+            return sum([dfs(child, level+1) for child in node.values()])
+        return dfs(trie,1)
