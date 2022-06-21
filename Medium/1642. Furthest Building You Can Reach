@@ -1,0 +1,15 @@
+from heapq import heappush,heappop
+class Solution:
+    def furthestBuilding(self, heights, bricks, ladders):
+        min_heap_ladder = []
+        for idx in range(len(heights)-1):
+            jump = heights[idx+1] - heights[idx]
+            if jump <= 0:
+                continue 
+            heappush(min_heap_ladder,jump)
+            if len(min_heap_ladder) <= ladders:
+                continue 
+            bricks -= heappop(min_heap_ladder)
+            if bricks < 0:
+                return idx 
+        return len(heights) - 1
