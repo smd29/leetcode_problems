@@ -1,0 +1,25 @@
+from heapq import heappush,heappop
+class Solution:
+    def scheduleCourse(self, courses: List[List[int]]) -> int:
+        courses.sort(key = lambda x:x[1])
+        max_heap,last_day, count = [], 0, 0
+        
+        for c in courses:
+            if c[0] > c[1]:
+                continue
+            #can we include
+            day = last_day + c[0]
+            if c[1] >= day:
+                count += 1
+                last_day = last_day + c[0]
+                heappush(max_heap,-c[0])
+                
+            else:
+                #if there is some duration, which can be eliminated
+                max_duration = abs(heappop(max_heap))
+                if c[0] < max_duration:
+                    last_day = last_day + c[0] - max_duration 
+                    heappush(max_heap,-c[0])
+                else:
+                    heappush(max_heap,-max_duration)
+        return count
