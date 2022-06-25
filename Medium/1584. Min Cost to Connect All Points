@@ -1,0 +1,21 @@
+from collections import defaultdict
+from heapq import heappush,heappop
+class Solution:
+    def minCostConnectPoints(self, points: List[List[int]]) -> int:
+        n = len(points)
+        visited = [False] * n
+        min_heap = [(0,0)]
+        min_cost = 0 
+        edges_added = 0
+        while edges_added < n:
+            cost, node = heappop(min_heap)
+            if not visited[node]:
+                visited[node] = True
+                min_cost += cost
+                edges_added += 1
+                
+                for neighbor in range(n):
+                    if not visited[neighbor]:
+                        dist = abs(points[node][0]-points[neighbor][0]) + abs(points[node][1]-points[neighbor][1])
+                        heappush(min_heap,(dist,neighbor))
+        return min_cost
