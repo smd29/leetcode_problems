@@ -1,0 +1,12 @@
+class Solution:
+    def minMoves2(self, nums: List[int]) -> int:
+        nums.sort()
+        size = len(nums)
+        if size & 1:
+            avg = nums[size//2]
+        else:
+            avg = (nums[size//2] + nums[(size//2)-1]) // 2
+        ans = 0 
+        for num in nums:
+            ans += abs(num - avg)
+        return ans
