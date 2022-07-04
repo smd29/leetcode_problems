@@ -1,0 +1,20 @@
+from collections import deque
+class Solution:
+    def minimumObstacles(self, grid: List[List[int]]) -> int:
+        rows, cols = len(grid), len(grid[0])
+        distance = [[-1 for c in range(cols)]for r in range(rows)]
+        queue = deque([(0,0,0)])
+        
+        while queue:
+            dist, row, col = queue.popleft()
+            directions = [(1,0),(-1,0),(0,1),(0,-1)]
+            for dr,dc in directions:
+                r,c = dr + row, dc + col
+                if r in range(rows) and c in range(cols) and distance[r][c] == -1:
+                    if grid[r][c] == 1:
+                        queue.append((dist+1,r,c))
+                        distance[r][c] = dist + 1
+                    else:
+                        queue.appendleft((dist,r,c))
+                        distance[r][c] = dist
+        return distance[rows-1][cols-1]
