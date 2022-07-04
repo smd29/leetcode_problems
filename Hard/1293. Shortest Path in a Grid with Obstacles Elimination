@@ -1,0 +1,29 @@
+from collections import deque
+class Solution:
+    def shortestPath(self, grid: List[List[int]], k: int) -> int:
+        #will go reverse 
+        rows,cols = len(grid), len(grid[0])
+        target = (rows-1,cols-1)
+        
+        if k >= rows + cols - 2:
+            return rows + cols - 2
+        
+        state = (0,0,k)
+        queue = deque([(0,state)])
+        visited = set([state])
+        
+        while queue:
+            steps, (row,col,k) = queue.popleft()
+            if (row,col) == target:
+                return steps
+            
+            directions = [(1,0),(-1,0),(0,1),(0,-1)]
+            for dr,dc in directions:
+                r,c = row + dr, col + dc
+                if r in range(rows) and c in range(cols):
+                    remaining = k - grid[r][c]
+                    new_state = (r,c,remaining)
+                    if remaining >= 0 and new_state not in visited:
+                        visited.add(new_state)
+                        queue.append((steps+1,new_state))
+        return -1
