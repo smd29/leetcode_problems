@@ -1,0 +1,14 @@
+class Solution:
+    def singleNumber(self, nums: List[int]) -> List[int]:
+        xorall = 0 
+        for val in nums:
+            xorall ^= val
+        
+        #rightmost set bit between two desired nums
+        diff = xorall & (-xorall)
+        
+        ans = 0
+        for val in nums:
+            if val & diff:
+                ans ^= val
+        return [ans,xorall^ans]
