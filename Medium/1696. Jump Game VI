@@ -1,0 +1,16 @@
+from collections import deque
+class Solution:
+    def maxResult(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        queue = deque() #monotonic decreasing queue of size k at max
+        dp = [0] * n 
+        dp[0] = nums[0]
+        queue = deque([0])
+        for idx in range(1,n):
+            while queue and queue[0] < idx - k:
+                queue.popleft()
+            dp[idx] = nums[idx] + dp[queue[0]]
+            while queue and dp[queue[-1]] <= dp[idx]:
+                queue.pop()
+            queue.append(idx)
+        return dp[-1]
