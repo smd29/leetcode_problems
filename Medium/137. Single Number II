@@ -1,0 +1,13 @@
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        ans = 0 
+        for bit in range(32):
+            cnt_set = 0
+            for val in nums:
+                cnt_set += (val >> bit) & 1
+            rem = cnt_set % 3
+            if rem and bit == 31:
+                ans -= 1 << bit
+            else:
+                ans |= rem * (1 << bit)
+        return ans
