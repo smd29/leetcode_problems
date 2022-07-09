@@ -1,0 +1,13 @@
+class Solution:
+    def longestPalindrome(self, s: str) -> int:
+        freq = collections.Counter(s)
+        ans = 0 
+        isExtra = False
+        for key in freq:
+            remainder = freq[key] % 2
+            if remainder == 1:
+                isExtra = True
+            ans += freq[key] - remainder
+        if isExtra:
+            ans += 1
+        return ans
