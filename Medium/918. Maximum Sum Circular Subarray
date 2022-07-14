@@ -1,0 +1,20 @@
+class Solution:
+    def maxSubarraySumCircular(self, nums: List[int]) -> int:
+        #consider the maxsubarray sum and minsubarray sum
+        
+        maxSum = nums[0]
+        currSum = nums[0]
+        for val in nums[1:]:
+            currSum = max(currSum+val,val)
+            maxSum = max(maxSum,currSum)
+        
+        minSum = nums[0]
+        currSum = nums[0]
+        for val in nums[1:]:
+            currSum = min(currSum+val,val)
+            minSum = min(minSum,currSum)
+        
+        circularSum = sum(nums) - minSum
+        if circularSum == 0:
+            return maxSum
+        return max(maxSum,circularSum)
