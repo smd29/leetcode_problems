@@ -1,0 +1,23 @@
+class Solution:
+    def getKth(self, lo: int, hi: int, k: int) -> int:
+        allPowers = collections.defaultdict(list)
+        for num in range(lo,hi+1):
+            power = self.findPower(num)
+            allPowers[power].append(num)
+        
+        for val in sorted(allPowers):
+            if len(allPowers[val]) < k:
+                k -= len(allPowers[val])
+            else:
+                return allPowers[val][k-1]
+            
+        
+    def findPower(self,num):
+        power = 0 
+        while num != 1:
+            if num & 1:
+                num = (num * 3) + 1
+            else:
+                num = num // 2
+            power += 1
+        return power
