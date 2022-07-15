@@ -1,0 +1,25 @@
+class Solution:
+    def countBattleships(self, board: List[List[str]]) -> int:
+        rows, cols = len(board), len(board[0])
+        visited = set()
+        battleships = 0
+        
+        def bfs(r,c):
+            queue = collections.deque()
+            queue.append((r,c))
+            visited.add((r,c))
+            while queue:
+                row,col = queue.popleft()
+                directions = [(1,0),(0,1),(-1,0),(0,-1)]
+                for dr,dc in directions:
+                    r,c = dr + row, dc + col
+                    if r in range(rows) and c in range(cols) and board[r][c] == "X" and (r,c) not in visited:
+                        queue.append((r,c))
+                        visited.add((r,c))
+                
+        for r in range(rows):
+            for c in range(cols):
+                if board[r][c] == "X" and (r,c) not in visited:
+                    bfs(r,c)
+                    battleships += 1
+        return battleships
