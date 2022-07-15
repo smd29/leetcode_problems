@@ -1,0 +1,18 @@
+class Solution:
+
+    def __init__(self, w: List[int]):
+        self.pf_sum = [w[0]]
+        for wt in w[1:]:
+            self.pf_sum.append(self.pf_sum[-1]+wt)
+        self.total_sum = self.pf_sum[-1]
+        
+    def pickIndex(self) -> int:
+        target = self.total_sum * random.random()
+        for idx, val in enumerate(self.pf_sum):
+            if target < val:
+                return idx
+
+
+# Your Solution object will be instantiated and called as such:
+# obj = Solution(w)
+# param_1 = obj.pickIndex()
