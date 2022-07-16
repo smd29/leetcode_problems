@@ -1,0 +1,42 @@
+class Solution:
+    def getMaxLen(self, nums: List[int]) -> int:
+        #for an arry with non_zero element, find number of negs
+        #if even, fine || else, find the idx for first neg and last neg 
+        
+        def helper(start,end):
+            isFound = False
+            neg_cnt = 0
+            for idx in range(start,end):
+                if nums[idx] < 0:
+                    if not isFound:
+                        first_neg = idx
+                        isFound = True
+                    last_neg = idx
+                    neg_cnt += 1
+            
+            if neg_cnt % 2 == 0:
+                length = end - start #(end-1-start+1)
+            else:
+                #ignoring the first negative
+                len1 = (end - 1) - (first_neg+1) + 1
+                #ignoring the last negative
+                len2 = (last_neg - 1) - start + 1
+                length = max(len1,len2)
+            return length
+        
+        zeros = []
+        for idx in range(len(nums)):
+            if nums[idx] == 0:
+                zeros.append(idx)
+        
+        maxLen = 0
+        start = 0
+        idx = 0
+        while idx < len(zeros):
+            length = helper(start,zeros[idx])
+            maxLen = max(maxLen,length)
+            start = zeros[idx] + 1
+            idx += 1
+        length = helper(start,len(nums))
+        maxLen = max(maxLen,length)
+        return maxLen
