@@ -1,0 +1,25 @@
+from collections import defaultdict
+class Solution:
+    def getHint(self, secret: str, guess: str) -> str:
+        s_dict = defaultdict(set)
+        for idx,char in enumerate(secret):
+            s_dict[char].add(idx)
+        g_dict = {}
+        bulls,cows = 0, 0
+        for idx,char in enumerate(guess):
+            if char in s_dict:
+                if idx in s_dict[char]:
+                    bulls += 1
+                    s_dict[char].remove(idx)
+                    if not s_dict[char]:
+                        del s_dict[char]
+                
+                else:
+                    g_dict[char] = g_dict.get(char,0) + 1
+                    
+        for char in g_dict:
+            cows += min(g_dict[char],len(s_dict[char]))
+            
+        bulls = str(bulls) + "A"
+        cows = str(cows) + "B"
+        return bulls + cows
