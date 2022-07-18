@@ -1,0 +1,30 @@
+class Solution:
+    def decodeString(self, s: str) -> str:
+        res = ""
+        stack = []
+        for c in s:
+            if c != "]":
+                stack.append(c)
+            else:
+                temp = ""
+                while stack and stack[-1] != "[":
+                    char = stack.pop()
+                    temp += char
+                #remove "["
+                stack.pop()
+                #count integer
+                integer = ""
+                while stack and 48 <= ord(stack[-1]) <= 57:
+                    val = stack.pop()
+                    integer += val 
+                ans = int(integer[::-1]) * temp    
+                ans = ans[::-1]
+                if not stack:
+                    res += ans 
+                else:
+                    for c in ans:
+                        stack.append(c)
+        if stack:
+            for c in stack:
+                res += c
+        return res
