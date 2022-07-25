@@ -1,0 +1,34 @@
+class Solution:
+    def matrixBlockSum(self, matrix: List[List[int]], k: int) -> List[List[int]]:
+        rows, cols = len(matrix), len(matrix[0])
+        dp = [[0 for c in range(cols)]for r in range(rows)]
+        ans = [[0 for c in range(cols)]for r in range(rows)]
+        for r in range(rows):
+            for c in range(cols):
+                if r == 0 and c == 0:
+                    dp[r][c] = matrix[r][c]
+                elif r == 0:
+                    dp[r][c] = matrix[r][c] + dp[r][c-1]
+                elif c == 0:
+                    dp[r][c] = matrix[r][c] + dp[r-1][c]
+                else:
+                    dp[r][c] = matrix[r][c] + dp[r-1][c] + dp[r][c-1] - dp[r-1][c-1]
+        
+        def sumRegion(dp,r1,c1,r2,c2):
+            pf_sum = dp 
+            if r1 == 0 and c1 == 0:
+                val = pf_sum[r2][c2]
+            elif r1 == 0:
+                val = pf_sum[r2][c2] - pf_sum[r2][c1-1]
+            elif c1 == 0:
+                val = pf_sum[r2][c2] - pf_sum[r1-1][c2]
+            else:
+                val = pf_sum[r2][c2] - (pf_sum[r2][c1-1] + pf_sum[r1-1][c2] - pf_sum[r1-1][c1-1])
+            return val 
+        
+        for r in range(rows):
+            for c in range(cols):
+                r1,r2 = max(0,r-k), min(rows-1,r+k)
+                c1,c2 = max(0,c-k), min(cols-1,c+k)
+                ans[r][c] = sumRegion(dp,r1,c1,r2,c2)
+        return ans
