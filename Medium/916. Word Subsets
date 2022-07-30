@@ -1,0 +1,19 @@
+class Solution:
+    def wordSubsets(self, word1: List[str], word2: List[str]) -> List[str]:
+        #reduce word2 to a single word 
+        def count(word):
+            ans = [0] * 26 
+            for letter in word:
+                ans[ord(letter) - ord('a')] += 1
+            return ans 
+        
+        word2_cnt = [0] * 26
+        for c in word2:
+            for idx, char in enumerate(count(c)):
+                word2_cnt[idx] = max(word2_cnt[idx],char)
+        
+        res = []
+        for c in word1:
+            if all(x >= y for x,y in zip(count(c),word2_cnt)):
+                res.append(c)
+        return res
