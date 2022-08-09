@@ -1,0 +1,22 @@
+import math
+class Solution:
+    def numFactoredBinaryTrees(self, arr: List[int]) -> int:
+        arr.sort()
+        idx_val = {}
+        for idx in range(len(arr)):
+            idx_val[arr[idx]] = idx
+        
+        dp = [1] * len(arr)
+        #dp[i] = no of trees possible when ith value is root node
+        
+        for idx, val in enumerate(arr):
+            for j in range(idx):
+                if val % arr[j] == 0:
+                    left = arr[j]
+                    right = val // left
+                    if right in idx_val:
+                        dp[idx] += dp[j] * (dp[idx_val[right]])
+                        dp[idx] %= (10 ** 9 + 7)
+                    
+        
+        return sum(dp) % (10 ** 9 + 7)
