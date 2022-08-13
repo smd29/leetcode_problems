@@ -1,0 +1,28 @@
+class Solution:
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        res = []
+        word_len = len(words[0])
+        window_len = word_len * len(words)
+        word_freq = collections.Counter(words)
+        
+        for idx in range(len(s)-window_len+1):
+            if self.validIndex(idx,words,window_len,word_len,s):
+                res.append(idx)
+        return res
+    
+    
+    def validIndex(self,idx,words,window_len,word_len,s):
+        freq = collections.Counter(words)
+        
+        for j in range(idx,idx+window_len,word_len):
+            word = s[j:j+word_len]
+            if word in freq:
+                if freq[word] == 1:
+                    del freq[word]
+                else:
+                    freq[word] -= 1
+            else:
+                break 
+        if not freq:
+            return True
+        return False
