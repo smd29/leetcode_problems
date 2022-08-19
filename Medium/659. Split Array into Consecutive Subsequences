@@ -1,0 +1,30 @@
+class Solution:
+    def isPossible(self, nums: List[int]) -> bool:
+        #start a subsequence only when 3 ALLOWED numbers are guranteed
+        
+        if len(nums) < 3:
+            return False
+        
+        freq = collections.Counter(nums)
+        subsequence = collections.defaultdict(int) #maintains the last element of subsequence
+        
+        for val in nums:
+            if freq[val] == 0:
+                continue
+            
+            freq[val] -= 1
+            
+            #add to existing subsequence
+            if subsequence[val-1] > 0:
+                subsequence[val-1] -= 1
+                subsequence[val] += 1
+            
+            #create a subsequence
+            elif freq[val+1] and freq[val+2]:
+                freq[val+1] -= 1
+                freq[val+2] -= 1
+                subsequence[val+2] += 1
+            
+            else:
+                return False
+        return True
