@@ -1,0 +1,21 @@
+class Solution:
+    def minRefuelStops(self, target: int, startFuel: int, stations: List[List[int]]) -> int:
+        skipped_stations = []
+        stations.append((target,float('inf')))
+        
+        stop_cnt = 0
+        prev = 0
+        rem_fuel = startFuel
+        for location, capacity in stations:
+            rem_fuel -= location - prev
+            while skipped_stations and rem_fuel < 0:
+                rem_fuel += abs(heapq.heappop(skipped_stations))
+                stop_cnt += 1
+            
+            if rem_fuel < 0:
+                return -1
+            
+            heapq.heappush(skipped_stations,-capacity)
+            prev = location
+        
+        return stop_cnt
