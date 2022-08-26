@@ -1,0 +1,7 @@
+class Solution:
+    def reorderedPowerOf2(self, n: int) -> bool:
+        count = collections.Counter(str(n))
+        for bit in range(31):
+            if collections.Counter(str(1<<bit)) == count:
+                return True
+        return False
