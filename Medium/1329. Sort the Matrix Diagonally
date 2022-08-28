@@ -1,0 +1,18 @@
+class Solution:
+    def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
+        rows, cols = len(mat), len(mat[0])
+        
+        diagonals = defaultdict(list)
+        
+        for r in range(rows):
+            for c in range(cols):
+                diagonals[r-c].append(mat[r][c])
+        
+        for val in diagonals.values():
+            heapq.heapify(val)
+        
+        for r in range(rows):
+            for c in range(cols):
+                val = heapq.heappop(diagonals[r-c])
+                mat[r][c] = val 
+        return mat
