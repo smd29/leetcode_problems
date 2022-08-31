@@ -1,0 +1,34 @@
+from collections import deque
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        rows, cols = len(heights), len(heights[0])
+        pac_queue = deque()
+        atl_queue = deque()
+        
+        #cells directly reachable from pacific and atlantic
+        for r in range(rows):
+            pac_queue.append((r,0))
+            atl_queue.append((r,cols-1))
+        
+        for c in range(cols):
+            pac_queue.append((0,c))
+            atl_queue.append((rows-1,c))
+        
+        def bfs(queue):
+            reachable = set()
+            while queue:
+                row, col = queue.popleft()
+                reachable.add((row,col))
+                for dr, dc in [(1,0),(0,1),(-1,0),(0,-1)]:
+                    cr, cc = dr + row, dc + col 
+                    if cr < 0 or cr >= rows or cc < 0 or cc >= cols:
+                        continue
+                    
+                    if (cr,cc) in reachable:
+                        continue
+                    if heights[cr][cc] < heights[row][col]:
+                        continue
+                    queue.append((cr,cc))
+            return reachable
+        
+        return list(bfs(pac_queue).intersection(bfs(atl_queue)))
