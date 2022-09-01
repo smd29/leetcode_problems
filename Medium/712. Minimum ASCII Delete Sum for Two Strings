@@ -1,0 +1,17 @@
+class Solution:
+    def minimumDeleteSum(self, s1: str, s2: str) -> int:
+        rows, cols = len(s1) + 1, len(s2) + 1
+        dp = [[0 for c in range(cols)]for r in range(rows)]
+        
+        for r in range(rows-2,-1,-1):
+            dp[r][cols-1] = dp[r+1][cols-1] + ord(s1[r])
+        for c in range(cols-2,-1,-1):
+            dp[rows-1][c] = dp[rows-1][c+1] + ord(s2[c])
+        
+        for r in range(rows-2,-1,-1):
+            for c in range(cols-2,-1,-1):
+                if s1[r] == s2[c]:
+                    dp[r][c] = dp[r+1][c+1]
+                else:
+                    dp[r][c] = min(dp[r+1][c]+ord(s1[r]),dp[r][c+1]+ord(s2[c]))
+        return dp[0][0]
