@@ -1,0 +1,31 @@
+class Solution:
+    def longestStrChain(self, words: List[str]) -> int:
+        dp = [1] * len(words)
+        words.sort(key=len)
+        for i in range(len(words)-2,-1,-1):
+            wordA = words[i]
+            for j in range(i+1,len(words)):
+                wordB = words[j]
+                if len(wordA) == len(wordB) or len(wordA) + 1 == len(wordB):
+                    if self.isPred(wordA,wordB):
+                        dp[i] = max(dp[i],1 + dp[j])
+                else:
+                    break
+        return max(dp)
+        
+    def isPred(self,wordA,wordB):
+        if len(wordA) + 1 != len(wordB):
+            return False
+        idxA, idxB = 0, 0 
+        mismatch = 0
+        while idxA < len(wordA) and idxB < len(wordB):
+            if wordA[idxA] == wordB[idxB]:
+                idxA += 1
+                idxB += 1
+            else:
+                mismatch += 1
+                if mismatch == 2:
+                    return False
+                idxB += 1
+            
+        return True
