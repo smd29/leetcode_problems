@@ -1,0 +1,13 @@
+class Solution:
+    def numberOfWeakCharacters(self, properties: List[List[int]]) -> int:
+        properties.sort(key = lambda x : (x[0], -x[1]))
+        stack = []
+        count = 0
+        
+        #add only defense values in stack as, we are primarily sorting based on attack
+        for attack, defense in properties:
+            while stack and stack[-1] < defense:
+                stack.pop()
+                count += 1
+            stack.append(defense)
+        return count
