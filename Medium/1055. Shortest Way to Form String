@@ -1,0 +1,13 @@
+class Solution:
+    def shortestWay(self, source: str, target: str) -> int:
+        dp = [float('inf')] * (len(target) + 1)
+        dp[0] = 0
+        for idx in range(1, len(target) + 1):
+            sourceIdx, targetIdx = len(source) - 1, idx - 1
+            while sourceIdx >= 0 and targetIdx >= 0:
+                if source[sourceIdx] == target[targetIdx]:
+                    if dp[targetIdx] != float('inf'):
+                        dp[idx] = min(dp[idx], dp[targetIdx] + 1)
+                    targetIdx -= 1
+                sourceIdx -= 1
+        return -1 if dp[-1] == float('inf') else dp[-1]
