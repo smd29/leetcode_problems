@@ -1,0 +1,11 @@
+class Solution:
+    def getFactors(self, n: int) -> List[List[int]]:
+        stack, res = [(n, 2, [])], []
+        while stack:
+            num, div, curr = stack.pop()
+            while div * div <= num:
+                if num % div == 0:
+                    res += curr + [div, num // div],
+                    stack += (num //div, div, curr+[div]),
+                div += 1
+        return res
