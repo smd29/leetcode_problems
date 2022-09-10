@@ -1,0 +1,22 @@
+class Solution:
+    def maxProfit(self, k: int, prices: List[int]) -> int:
+        if k >= len(prices) // 2:
+            #case 2
+            #because k doesn't matter here
+            buy, sell = 0, 1
+            profit = 0 
+            while sell < len(prices):
+                if prices[sell] > prices[buy]:
+                    profit += prices[sell] - prices[buy]
+                buy += 1
+                sell += 1
+            return profit
+        
+        t_ik0 = [0] * (k+1)
+        t_ik1 = [float('-inf')] * (k+1)
+        
+        for p in prices:
+            for j in range(k,0,-1):
+                t_ik0[j] = max(t_ik0[j], t_ik1[j] + p)
+                t_ik1[j] = max(t_ik1[j], t_ik0[j-1] - p)
+        return t_ik0[-1]
