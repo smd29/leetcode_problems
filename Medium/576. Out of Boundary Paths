@@ -1,0 +1,39 @@
+class Solution:
+    def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:
+        """
+        def solve(r,c,maxMove):
+            if maxMove < 0:
+                return 0 
+            if r < 0 or r >= m or c < 0 or c >= n:
+                return 1
+            
+            up = solve(r-1, c, maxMove-1)
+            down = solve(r+1, c, maxMove-1)
+            right = solve(r, c+1, maxMove-1)
+            left = solve(r, c-1, maxMove-1)
+            return up + down + right + left 
+        
+        return solve(startRow,startColumn,maxMove)
+        TC: O(4^n)
+        """
+        #instead of 2 states, we have 3 states here 
+        # row, col, maxMoves
+        dp = [[[-1]*(maxMove+1) for c in range(n+1)]for r in range(m+1)]
+        
+        def solve(r,c,maxMove):
+            if maxMove < 0:
+                return 0 
+            if r < 0 or r >= m or c < 0 or c >= n:
+                return 1
+            if dp[r][c][maxMove] != -1:
+                return dp[r][c][maxMove]
+            up = solve(r-1, c, maxMove-1)
+            down = solve(r+1, c, maxMove-1)
+            right = solve(r, c+1, maxMove-1)
+            left = solve(r, c-1, maxMove-1)
+            
+            dp[r][c][maxMove] = up + down + right + left
+            return dp[r][c][maxMove]
+        
+        return solve(startRow,startColumn,maxMove) % ((10 ** 9) + 7)
+    #TC: O(m*n*maxMoves)
