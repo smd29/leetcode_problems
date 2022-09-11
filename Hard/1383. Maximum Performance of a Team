@@ -1,0 +1,31 @@
+class Solution:
+    def maxPerformance(self, n: int, speed: List[int], efficiency: List[int], k: int) -> int:
+        mod = (10 ** 9) + 7
+        
+        #reverse sort based on efficiency 
+        engineers = []
+        for eff, sp in zip(efficiency,speed):
+            engineers.append([eff,sp])
+        engineers.sort(reverse=True)
+        
+        #maintain a heap of size k 
+        #heap of speeds
+        total_speed = 0 
+        speed_heap = []
+        performance = 0
+        for idx in range(k):
+            curr_min_eff = engineers[idx][0]
+            curr_speed = engineers[idx][1]
+            total_speed += curr_speed
+            heapq.heappush(speed_heap,engineers[idx][1])
+            performance = max(performance, curr_min_eff * total_speed)
+        
+        for idx in range(k,len(engineers)):
+            curr_min_eff = engineers[idx][0]
+            curr_speed = engineers[idx][1]
+            if curr_speed > speed_heap[0]:
+                total_speed += curr_speed - speed_heap[0]
+                heapq.heappop(speed_heap)
+                heapq.heappush(speed_heap,curr_speed)
+                performance = max(performance, total_speed * curr_min_eff)
+        return performance % mod
