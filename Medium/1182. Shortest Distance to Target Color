@@ -1,0 +1,22 @@
+class Solution:
+    def shortestDistanceColor(self, colors: List[int], queries: List[List[int]]) -> List[int]:
+        n = len(colors)
+        
+        idx_dict = defaultdict(list)
+        for idx,val in enumerate(colors):
+            idx_dict[val].append(idx)
+        
+        res = []
+        for idx, (target,color) in enumerate(queries):
+            if color not in idx_dict:
+                ans = -1
+            
+            else:
+                idx_list = idx_dict[color]
+                insert_pos = bisect.bisect_left(idx_list,target)
+                near_left = abs(idx_list[max(insert_pos-1,0)]-target)
+                near_right = abs(idx_list[min(insert_pos,len(idx_list)-1)]-target)
+                ans = min(near_left,near_right)
+            res.append(ans)
+        
+        return res
