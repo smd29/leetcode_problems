@@ -1,0 +1,37 @@
+class Solution:
+    def longestLine(self, mat: List[List[int]]) -> int:
+        rows, cols = len(mat), len(mat[0])
+        dp = [[[0,0,0,0] for c in range(cols)]for r in range(rows)]
+        ans = 0 
+        
+        for r in range(rows):
+            for c in range(cols):
+                if mat[r][c] == 1:
+                    #case1:
+                    if r == 0 and c == 0:
+                        dp[r][c] = [1,1,1,1]
+                    #case2:
+                    elif c == 0:
+                        dp[r][c] = [1,
+                                dp[r-1][c][1] + 1,
+                                1,
+                                dp[r-1][c+1][3] + 1 if c != cols-1 else 1]    
+                    #case3:
+                    elif c == cols-1:
+                        dp[r][c] = [dp[r][c-1][0] + 1,
+                                dp[r-1][c][1] + 1,
+                                dp[r-1][c-1][2] + 1 if c != 0 else 1,
+                                1]
+                    #case4:
+                    elif r == 0:
+                        dp[r][c] = [dp[r][c-1][0] + 1,
+                                1,
+                                1,
+                                dp[r-1][c+1][3] + 1]
+                    else:
+                        dp[r][c] = [dp[r][c-1][0] + 1,
+                                    dp[r-1][c][1] + 1,
+                                    dp[r-1][c-1][2] + 1,
+                                    dp[r-1][c+1][3] + 1]
+                    ans = max(ans,max(dp[r][c]))
+        return ans
