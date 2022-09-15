@@ -1,0 +1,23 @@
+class Solution:
+    def findOriginalArray(self, changed: List[int]) -> List[int]:
+        if len(changed) % 2 != 0:
+            return []
+        res = []
+        freq = collections.Counter(changed)
+        
+        changed.sort()
+        
+        for val in changed:
+            dob = val * 2 
+            if val in freq and dob in freq:
+                if freq[val] > 1:
+                    freq[val] -= 1
+                else:
+                    del freq[val]
+                
+                if freq[dob] > 1:
+                    freq[dob] -= 1
+                else:
+                    del freq[dob]
+                res.append(val)
+        return [] if freq else res
