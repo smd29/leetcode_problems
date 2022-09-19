@@ -1,0 +1,12 @@
+class Solution:
+    def findDuplicate(self, paths: List[str]) -> List[List[str]]:
+        words = collections.defaultdict(list)
+        for p in paths:
+            path = p.split()
+            dirPath, rest = path[0], path[1:]
+            for file in rest:
+                fileName = file.split('(')[0]
+                fileContent = file.split('(')[1][:-1]
+                words[fileContent].append("{}/{}".format(dirPath, fileName))
+        
+        return [words[k] for k in words.keys() if len(words[k]) > 1]
