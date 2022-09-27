@@ -1,0 +1,17 @@
+class Solution:
+    def removeInterval(self, intervals: List[List[int]], toBeRemoved: List[int]) -> List[List[int]]:
+        res = []
+        for slot in intervals:
+            if slot[1] < toBeRemoved[0] or slot[0] >= toBeRemoved[1]:
+                res.append(slot)
+            elif slot[0] < toBeRemoved[0] and slot[1] > toBeRemoved[1]:
+                res.append([slot[0],toBeRemoved[0]])
+                res.append([toBeRemoved[1],slot[1]])
+            elif slot[0] < toBeRemoved[0] < slot[1]:
+                res.append([slot[0],toBeRemoved[0]])
+            elif slot[0] < toBeRemoved[1] < slot[1]:
+                res.append([toBeRemoved[1],slot[1]])
+            elif toBeRemoved[0] < slot[0] and toBeRemoved[1] > slot[1]:
+                continue
+            
+        return res
