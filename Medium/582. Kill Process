@@ -1,0 +1,16 @@
+class Solution:
+    def killProcess(self, pid: List[int], ppid: List[int], kill: int) -> List[int]:
+        graph = defaultdict(list)
+        n = len(pid)
+        for idx in range(n):
+            src, dest = ppid[idx], pid[idx]
+            graph[src].append(dest)
+        
+        queue = deque([kill])
+        res = []
+        while queue:
+            kill = queue.popleft()
+            res.append(kill)
+            if kill in graph:
+                queue += graph[kill]
+        return res
