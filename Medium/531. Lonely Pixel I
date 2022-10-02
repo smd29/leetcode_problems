@@ -1,0 +1,16 @@
+class Solution:
+    def findLonelyPixel(self, picture: List[List[str]]) -> int:
+        rows, cols = len(picture), len(picture[0])
+        rowCnt, colCnt = [0] * rows, [0] * cols
+        for r in range(rows):
+            for c in range(cols):
+                if picture[r][c] == "B":
+                    rowCnt[r] += 1
+                    colCnt[c] += 1
+        ans = 0 
+        for r in range(rows):
+            for c in range(cols):
+                if picture[r][c] == "B":
+                    if rowCnt[r] == 1 and colCnt[c] == 1:
+                        ans += 1
+        return ans
