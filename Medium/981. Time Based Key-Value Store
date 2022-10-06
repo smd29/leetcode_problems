@@ -1,0 +1,30 @@
+class TimeMap:
+
+    def __init__(self):
+        self.key_val = collections.defaultdict(list)
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        self.key_val[key].append([timestamp,value])
+
+    def get(self, key: str, timestamp: int) -> str:
+        if key not in self.key_val or timestamp < self.key_val[key][0][0]:
+            return ""
+        
+        #binary search
+        left, right = 0, len(self.key_val[key])
+        while left < right:
+            mid = (left+right) // 2
+            if self.key_val[key][mid][0] <= timestamp:
+                left = mid + 1
+            else:
+                right = mid
+        
+        if right == 0:
+            return ""
+        return self.key_val[key][right-1][1]
+
+
+# Your TimeMap object will be instantiated and called as such:
+# obj = TimeMap()
+# obj.set(key,value,timestamp)
+# param_2 = obj.get(key,timestamp)
