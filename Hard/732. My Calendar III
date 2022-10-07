@@ -1,0 +1,22 @@
+class MyCalendarThree:
+
+    def __init__(self):
+        self.intervals = []
+
+    def book(self, start: int, end: int) -> int:
+        self.intervals.append([start,end])
+        return self.overlapCnt(self.intervals)
+        
+    def overlapCnt(self,intervals):
+        intervals.sort()
+        room = []
+        heapq.heappush(room,intervals[0][1])
+        for interval in intervals[1:]:
+            if interval[0] >= room[0]:
+                heapq.heappop(room)
+            heapq.heappush(room,interval[1])
+        return len(room)
+        
+# Your MyCalendarThree object will be instantiated and called as such:
+# obj = MyCalendarThree()
+# param_1 = obj.book(start,end)
