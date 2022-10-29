@@ -1,0 +1,11 @@
+class Solution:
+    def earliestFullBloom(self, plantTime: List[int], growTime: List[int]) -> int:
+        #sort plants based on growth days: desc order
+        data = list(zip(plantTime,growTime))
+        data.sort(key=lambda x:-x[1])
+        
+        days, start_time = 0, 0 
+        for plant, grow in data:
+            start_time += plant
+            days = max(days,start_time+grow)
+        return days
