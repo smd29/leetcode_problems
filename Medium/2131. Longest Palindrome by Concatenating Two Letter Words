@@ -1,0 +1,18 @@
+class Solution:
+    def longestPalindrome(self, words: List[str]) -> int:
+        cnt = Counter(words)
+        ans = 0
+        central = False
+        for word, word_cnt in cnt.items():
+            if word[0] == word[1]:
+                if word_cnt % 2 == 0:
+                    ans += word_cnt 
+                else:
+                    ans += word_cnt - 1
+                    central = True
+            elif word[0] < word[1]:
+                ans += 2 * min(word_cnt,cnt[word[1] + word[0]])
+        
+        if central:
+            ans += 1
+        return 2 * ans
