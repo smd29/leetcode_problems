@@ -1,0 +1,10 @@
+class Solution:
+    def isStrobogrammatic(self, num: str) -> bool:
+        number_map = {'0':'0', '1':'1', '6': '9', '8':'8', '9':'6'}
+        rotated_string = []
+        for c in reversed(num):
+            if c not in number_map:
+                return False
+            rotated_string.append(number_map[c])
+        string = "".join(rotated_string)
+        return string == num

@@ -1,0 +1,25 @@
+class Solution:
+    def findWinners(self, matches: List[List[int]]) -> List[List[int]]:
+        games = {}
+        winners = collections.defaultdict(int)
+        for m in matches:
+            winner, loser = m[0], m[1]
+            if winner not in games:
+                games[winner] = 1
+            else:
+                games[winner] += 1
+            if loser not in games:
+                games[loser] = 1
+            else:
+                games[loser] += 1
+            if winner in winners:
+                winners[winner] += 1
+            else:
+                winners[winner] = 1
+        all_winners, one_loser = [], []
+        for player in sorted(games):
+            if games[player] == winners[player]:
+                all_winners.append(player)
+            elif games[player] - winners[player] == 1:
+                one_loser.append(player)
+        return [all_winners,one_loser]
