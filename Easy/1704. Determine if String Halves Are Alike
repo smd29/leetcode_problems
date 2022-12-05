@@ -1,0 +1,13 @@
+class Solution:
+    def halvesAreAlike(self, s: str) -> bool:
+        size = len(s)
+        left_cnt, right_cnt = 0, 0 
+        start, end = 0, size-1
+        while start < end:
+            if s[start] in ['a','e','i','o','u','A','E','I','O','U']:
+                left_cnt += 1
+            if s[end] in ['a','e','i','o','u','A','E','I','O','U']:
+                right_cnt += 1
+            start += 1
+            end -= 1
+        return left_cnt == right_cnt

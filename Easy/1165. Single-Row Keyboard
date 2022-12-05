@@ -1,0 +1,11 @@
+class Solution:
+    def calculateTime(self, keyboard: str, word: str) -> int:
+        position = {}
+        for idx, char in enumerate(keyboard):
+            position[char] = idx 
+        
+        time, current_pos = 0, 0 
+        for c in word:
+            time += abs(position[c]-current_pos)
+            current_pos = position[c]
+        return time

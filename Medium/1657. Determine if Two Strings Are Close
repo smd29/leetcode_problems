@@ -1,0 +1,6 @@
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        if len(word1) != len(word2):
+            return False
+        freq_word1, freq_word2 = Counter(word1), Counter(word2)
+        return freq_word1.keys() == freq_word2.keys() and Counter(freq_word1.values()) == Counter(freq_word2.values())
