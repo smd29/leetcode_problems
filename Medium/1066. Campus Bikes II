@@ -1,0 +1,22 @@
+class Solution:
+    def assignBikes(self, workers: List[List[int]], bikes: List[List[int]]) -> int:
+        dp = {}
+        
+        def findDistance(bikes,workers):
+            return abs(bikes[0] - workers[0]) + abs(bikes[1] - workers[1])
+        
+        def dfs(idx, status):
+            if idx == len(workers):
+                return 0
+            if (idx, tuple(status)) in dp:
+                return dp[(idx, tuple(status))]
+            min_dist = float('inf')
+            for i in range(len(status)):
+                if status[i] == "available":
+                    updated_status = status[:i] + ["occupied"] + status[i + 1:]
+                    min_dist = min(min_dist,  findDistance(bikes[i], workers[idx]) + dfs(idx + 1, updated_status))
+            dp[(idx, tuple(status))] = min_dist
+            return min_dist
+        
+        ans = dfs(0, ["available" for _ in range(len(bikes))])
+        return ans
